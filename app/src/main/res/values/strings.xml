@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">restaurant_guide</string>
+
+    <!-- Review Interface Page -->
+    <string name="review_pageTitle">Make Review</string>
+    <string name="rating_placeholder">Make Rating</string>
+    <string name="write_review">Write Review</string>
+    <string name="placeholder_review">Write your review here</string>
+    <string name="submit">Submit Review</string>
+
+    <!-- About Us Page -->
+    <string name="about_pageTitle">About Us</string>
+    <string name="stefan">Stefan Kepinski</string>
+    <string name="stefan_id">101356431</string>
+
+    <string name="james">James Macaloney</string>
+    <string name="james_id">101362896</string>
+
+    <string name="vincent">Vincent Calonzo</string>
+    <string name="vincent_id">101272540</string>
+
+    <string name="ritchel">Ritchel Etchorre</string>
+    <string name="ritchel_id">101358231</string>
+
+
 </resources>
