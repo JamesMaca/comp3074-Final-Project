@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Restaurant_guide"
-        tools:targetApi="31">
+        tools:targetApi="34">
+
+        <activity
+            android:name=".Details"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
