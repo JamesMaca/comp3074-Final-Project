@@ -13,6 +13,14 @@
         android:theme="@style/Theme.Restaurant_guide"
         tools:targetApi="31">
         <activity
+            android:name=".edit_restaurant"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".add_restaurant"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
