@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Restaurant_guide"
         tools:targetApi="34">
 
+
+        <activity
+            android:name=".AboutUs"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".ReviewInterface"
             android:exported="true"

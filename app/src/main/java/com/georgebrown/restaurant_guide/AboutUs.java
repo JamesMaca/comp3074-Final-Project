@@ -16,7 +16,7 @@ public class AboutUs extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
