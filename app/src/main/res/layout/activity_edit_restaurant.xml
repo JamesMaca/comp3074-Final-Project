@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context=".add_restaurant"
+    android:background="#ADD8E6">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+       >
+
+        <TextView
+            android:id="@+id/add_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="151dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="152dp"
+            android:layout_marginBottom="32dp"
+            android:text="Edit Restaurant"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/rest_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rest_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="143dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="143dp"
+            android:layout_marginBottom="567dp"
+            android:text="Name of Restaurant"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.535"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_title" />
+
+        <EditText
+            android:id="@+id/rest_name_enter"
+            android:layout_width="252dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="101dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="511dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:importantForAccessibility="yes"
+            android:inputType="text"
+            android:text="GBCafe"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest_name" />
+
+        <TextView
+            android:id="@+id/rest_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="117dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="118dp"
+            android:layout_marginBottom="474dp"
+            android:text="Change Address"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest_name_enter" />
+
+        <EditText
+            android:id="@+id/rest_address_enter"
+            android:layout_width="252dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="429dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:text="123 Street Ave. \nToronto, ON \nM5F6C2
+"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest_address"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/rest_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="179dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="174dp"
+            android:layout_marginBottom="330dp"
+            android:text="Hours"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest_address_enter" />
+
+        <EditText
+            android:id="@+id/rest_hours_enter"
+            android:layout_width="315dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="101dp"
+            android:layout_marginEnd="101dp"
+            android:layout_marginBottom="284dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textMultiLine"
+            android:text=" Monday: 9am - 7pm
+                           Tuesday: 9am - 7pm
+                            Wednesday: 9am - 7pm
+                            Thursday: 9am - 7pm \t
+                            Friday: 9am - 7pm"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest_hours"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_photo"
+            android:layout_width="129dp"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="127dp"
+            android:background="@drawable/box_border_2"
+            android:text="Add a Photo"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rest_hours_enter"
+            app:layout_constraintVertical_bias="0.0">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="175dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="113dp"
+            android:layout_marginBottom="38dp"
+            android:text="Submit Restaurant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_photo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

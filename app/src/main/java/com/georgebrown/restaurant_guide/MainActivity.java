@@ -32,7 +32,6 @@ import java.util.List;
 import android.content.Intent;
 import android.widget.Button;
 
-
 public class MainActivity extends AppCompatActivity {
 
     List<Restaurant> restaurantList = new ArrayList<>();
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //Sets custom toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -235,4 +233,5 @@ public class MainActivity extends AppCompatActivity {
             return homeRowView;
         }
     }
+
 }
