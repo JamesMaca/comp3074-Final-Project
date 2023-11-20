@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,10 @@ import com.georgebrown.restaurant_guide.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+import android.widget.Button;
+
+
 public class MainActivity extends AppCompatActivity {
 
     List<Restaurant> restaurantList = new ArrayList<>();
@@ -38,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //Sets custom toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         // ========= START ========
         // Sample Data
