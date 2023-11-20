@@ -14,6 +14,11 @@
         tools:targetApi="34">
 
         <activity
+            android:name=".ReviewInterface"
+            android:exported="true"
+            android:parentActivityName=".Details"/>
+
+        <activity
             android:name=".Details"
             android:exported="true"
             android:parentActivityName=".MainActivity"/>
