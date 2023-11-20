@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             //Configure About Us Activity Here.....
 
         }else if(item.getItemId() == R.id.adRestaurant){
-            Intent intent = new Intent(MainActivity.this, AboutUs.class);
+            Intent intent = new Intent(MainActivity.this, add_restaurant.class);
             startActivity(intent);
 
         }
