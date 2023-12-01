@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/aboutUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:title="About Us" />
+    <item
+        android:id="@+id/adRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Add Restaurant" />
 
 </menu>

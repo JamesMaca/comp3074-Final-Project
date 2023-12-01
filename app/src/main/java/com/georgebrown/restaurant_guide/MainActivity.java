@@ -32,7 +32,6 @@ import java.util.List;
 import android.content.Intent;
 import android.widget.Button;
 
-
 public class MainActivity extends AppCompatActivity {
 
     List<Restaurant> restaurantList = new ArrayList<>();
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //Sets custom toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -118,8 +116,11 @@ public class MainActivity extends AppCompatActivity {
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"Proceed to Details Page for " +
-                        restaurantList.get(position).getName(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Details.class);
+                startActivity(intent);
+//                Toast.makeText(getApplicationContext(),"Proceed to Details Page for " +
+
+//                        restaurantList.get(position).getName(),Toast.LENGTH_SHORT).show();
 
                 // Configure Details Activity Here..........
 
@@ -157,12 +158,13 @@ public class MainActivity extends AppCompatActivity {
         // configure dropdown_menu.xml first.. (under menu package in resource folder)
 
         if (item.getItemId() == R.id.aboutUs){
-            Toast.makeText(this,"Proceed to About Us Page",Toast.LENGTH_SHORT).show();
-
+            Intent intent = new Intent(MainActivity.this, AboutUs.class);
+            startActivity(intent);
             //Configure About Us Activity Here.....
 
-        }else{
-            //default
+        }else if(item.getItemId() == R.id.adRestaurant){
+            Intent intent = new Intent(MainActivity.this, add_restaurant.class);
+            startActivity(intent);
 
         }
 
@@ -231,4 +233,5 @@ public class MainActivity extends AppCompatActivity {
             return homeRowView;
         }
     }
+
 }

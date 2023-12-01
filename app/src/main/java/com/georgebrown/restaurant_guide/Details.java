@@ -30,13 +30,23 @@ public class Details extends AppCompatActivity {
             }
         });
 
+        Button btnEdit = findViewById(R.id.edit_listing);
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Details.this, edit_restaurant.class);
+                startActivity(intent);
+            }
+        });
+
 
         ImageButton makeReview = findViewById(R.id.add_review_btn);
 
         makeReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Details.this, MainActivity.class);
+                Intent intent = new Intent(Details.this, ReviewInterface.class);
                 startActivity(intent);
             }
         });
