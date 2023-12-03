@@ -9,17 +9,22 @@ public class Restaurant {
     private String type;
     private Address Address;
     private float ratings;
-    private List<Review> review;
+    private String priceEstimation;
+    private List<Review> reviewList;
 
-    public Restaurant(int _ID, String name,String type,
+    public Restaurant(int _ID,
+                      String name,
+                      String type,
                       com.georgebrown.restaurant_guide.model.Address address,
-                      float ratings, List<Review> review) {
+                      String priceEstimation,
+                      List<Review> reviewList) {
         this._ID = _ID;
         this.type = type;
         this.name = name;
         Address = address;
-        this.ratings = ratings;
-        this.review = review;
+        this.priceEstimation = priceEstimation;
+        this.reviewList = reviewList;
+        ratings = setAverageRating();
     }
 
     public int get_ID() {
@@ -54,20 +59,34 @@ public class Restaurant {
         Address = address;
     }
 
+    public String getPriceEstimation() {
+        return priceEstimation;
+    }
+
+    public void setPriceEstimation(String priceEstimation) {
+        this.priceEstimation = priceEstimation;
+    }
+
     public float getRatings() {
         return ratings;
     }
 
-    public void setRatings(float ratings) {
-        this.ratings = ratings;
-    }
+    public void setRatings(float ratings) { this.ratings = ratings; }
 
     public List<Review> getReview() {
-        return review;
+        return reviewList;
     }
 
-    public void setReview(List<Review> review) {
-        this.review = review;
+    public void setReview(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
+    private float setAverageRating() {
+        float resAvgRating = 0;
+        for (Review review : reviewList){
+            resAvgRating += review.getRating();
+        }
+        return resAvgRating/reviewList.size();
     }
 
     @Override
@@ -78,7 +97,8 @@ public class Restaurant {
                 ", type='" + type + '\'' +
                 ", Address=" + Address +
                 ", ratings=" + ratings +
-                ", review=" + review +
+                ", priceEstimation='" + priceEstimation + '\'' +
+                ", reviewList=" + reviewList +
                 '}';
     }
 }
