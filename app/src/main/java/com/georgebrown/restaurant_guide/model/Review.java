@@ -3,11 +3,15 @@ package com.georgebrown.restaurant_guide.model;
 public class Review {
     private User user;
     private String Review;
+    private float rating;
+
 
     private float userRating;
 
     public Review(User user, String review, float rating) {
+
         this.user = user;
+        this.rating = rating;
         Review = review;
         userRating = rating;
     }
@@ -27,13 +31,13 @@ public class Review {
     public void setReview(String review) {
         Review = review;
     }
-
-    public float getUserRating() {
-        return userRating;
+  
+    public float getRating() {
+        return rating;
     }
 
-    public void setUserRating(float rating) {
-        userRating = rating;
+    public void setRating(float rating) { 
+      this.rating = rating; 
     }
 
     @Override
@@ -41,6 +45,7 @@ public class Review {
         return "Review{" +
                 "user=" + user +
                 ", Review='" + Review + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }

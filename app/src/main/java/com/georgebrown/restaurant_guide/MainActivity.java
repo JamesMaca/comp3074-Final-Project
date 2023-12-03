@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SearchView;
@@ -48,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         // ========= START ========
         // Sample Data
-        List<Review> reviewList = new ArrayList<>();
+        List<Review> cafeReviewList = new ArrayList<>();
+        List<Review> sushiReviewList = new ArrayList<>();
 
         // sample restaurant address
         Address sample_res_address_1 = new Address(
@@ -71,29 +74,63 @@ public class MainActivity extends AppCompatActivity {
                 sample_usr_address_1,
                 "4167829812");
 
-        // sample review
-        Review sample_review= new Review(
+        // cafe sample review
+        Review sample_review_1= new Review(
                 sample_user_1,
-                "Nice cafe", 4);
+                "Nice cafe",
+                4f);
+
+        Review sample_review_2= new Review(
+                sample_user_1,
+                "Nice cafe",
+                3f);
+
+        Review sample_review_3= new Review(
+                sample_user_1,
+                "Nice cafe",
+                3f);
+
+        // sushi sample review
+        Review sample_review_4= new Review(
+                sample_user_1,
+                "Delicious Sushi",
+                5f);
+
+        Review sample_review_5= new Review(
+                sample_user_1,
+                "Affordable Sushi",
+                5f);
+
+        Review sample_review_6= new Review(
+                sample_user_1,
+                "Friendly Staff",
+                4f);
 
         // add sample review to a list of reviews
-        reviewList.add(sample_review);
+        // cafe
+        cafeReviewList.add(sample_review_1);
+        cafeReviewList.add(sample_review_2);
+        cafeReviewList.add(sample_review_3);
+        // sushi
+        sushiReviewList.add(sample_review_4);
+        sushiReviewList.add(sample_review_5);
+        sushiReviewList.add(sample_review_6);
 
         Restaurant sample_restaurant_1 = new Restaurant(
                 1,
                 "The GBCafe",
                 "Cafe",
                 sample_res_address_1,
-                3.8f,
-                reviewList);
+                "$$",
+                cafeReviewList);
 
         Restaurant sample_restaurant_2 = new Restaurant(
                 2,
                 "GBC Sushi",
                 "Sushi",
                 sample_res_address_1,
-                5f,
-                reviewList);
+                "$",
+                sushiReviewList);
 
 
         // ========= END ========
@@ -133,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                homeAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -171,15 +207,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private class HomeAdapter extends ArrayAdapter<Restaurant>{
+    private class HomeAdapter extends ArrayAdapter<Restaurant> implements Filterable {
         private Context context;
         private List<Restaurant> restaurantList;
+        private List<Restaurant> filteredRestaurantList;
 
         public HomeAdapter(Context context, List<Restaurant> restaurantList){
             super(context,R.layout.home_row_layout,restaurantList);
 
             this.context = context;
             this.restaurantList = restaurantList;
+            this.filteredRestaurantList = new ArrayList<>(restaurantList);
         }
 
         @NonNull
@@ -193,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
             homeRowView = inflater.inflate(R.layout.home_row_layout,parent,false);
 
-            Restaurant restaurant = restaurantList.get(position);
+            Restaurant restaurant = filteredRestaurantList.get(position);
 
             //NOTE: Still need to configure the restaurant model to store a picture
 
@@ -211,11 +249,11 @@ public class MainActivity extends AppCompatActivity {
 
             //Restaurant Rating Count
             TextView ratingCount = homeRowView.findViewById(R.id.ratingCount);
-            ratingNumber.setText("1"); //forgot to keep track of rating count
+            ratingNumber.setText(String.valueOf(restaurant.getReview().size()));
 
             //Restaurant Price Estimate
             TextView priceEstimate = homeRowView.findViewById(R.id.priceEstimate);
-            priceEstimate.setText("$$"); // need to do some logic to for price estimation
+            priceEstimate.setText(restaurant.getPriceEstimation());
 
             //Restaurant Type and Address
             TextView typeAndAddress = homeRowView.findViewById(R.id.typeAndAddress);
@@ -231,6 +269,56 @@ public class MainActivity extends AppCompatActivity {
             restaurantHours.setText("Open" + " - " + "Closes " + "10 p.m.");
 
             return homeRowView;
+        }
+
+        @NonNull
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();
+                    List<Restaurant> filteredList = new ArrayList<>();
+
+                    if (constraint == null || constraint.length() == 0) {
+                        filteredList.addAll(restaurantList);
+                    } else {
+                        String filterPattern = constraint.toString().toLowerCase().trim();
+
+                        for (Restaurant restaurant : restaurantList) {
+                            if (restaurant.getName().toLowerCase().contains(filterPattern)) {
+                                filteredList.add(restaurant);
+                            }
+                        }
+                    }
+
+                    results.values = filteredList;
+                    results.count = filteredList.size();
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    filteredRestaurantList.clear();
+                    filteredRestaurantList.addAll((List<Restaurant>) results.values);
+                    notifyDataSetChanged();
+                }
+            };
+        }
+        @Override
+        public int getCount() {
+            return filteredRestaurantList.size();
+        }
+
+        @Nullable
+        @Override
+        public Restaurant getItem(int position) {
+            return filteredRestaurantList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
         }
     }
 
