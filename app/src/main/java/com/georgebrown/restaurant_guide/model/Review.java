@@ -5,10 +5,15 @@ public class Review {
     private String Review;
     private float rating;
 
-    public Review(User user, String review,float rating) {
+
+    private float userRating;
+
+    public Review(User user, String review, float rating) {
+
         this.user = user;
         this.rating = rating;
         Review = review;
+        userRating = rating;
     }
 
     public User getUser() {
@@ -26,12 +31,14 @@ public class Review {
     public void setReview(String review) {
         Review = review;
     }
-
+  
     public float getRating() {
         return rating;
     }
 
-    public void setRating(float rating) { this.rating = rating; }
+    public void setRating(float rating) { 
+      this.rating = rating; 
+    }
 
     @Override
     public String toString() {
