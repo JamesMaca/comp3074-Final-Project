@@ -13,11 +13,30 @@
         android:theme="@style/Theme.Restaurant_guide"
         tools:targetApi="34">
 
+
+        <activity
+            android:name=".AboutUs"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity
+            android:name=".ReviewInterface"
+            android:exported="true"
+            android:parentActivityName=".Details"/>
+
         <activity
             android:name=".Details"
             android:exported="true"
             android:parentActivityName=".MainActivity"/>
 
+        <activity
+            android:name=".edit_restaurant"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".add_restaurant"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

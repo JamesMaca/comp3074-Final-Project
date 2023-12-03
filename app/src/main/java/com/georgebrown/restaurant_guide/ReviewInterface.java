@@ -32,7 +32,7 @@ public class ReviewInterface extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), Details.class));
             }
         });
         submitButton.setOnClickListener(new View.OnClickListener() {
