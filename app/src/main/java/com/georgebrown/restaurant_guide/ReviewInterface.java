@@ -7,11 +7,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.georgebrown.restaurant_guide.model.Review;
+import com.georgebrown.restaurant_guide.model.User;
+
+import java.util.ArrayList;
+
 public class ReviewInterface extends AppCompatActivity {
+
+    private ArrayList<Review> reviewList = new ArrayList<>();
+
+    public ArrayList<Review> getReviewList() {
+        return reviewList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +36,8 @@ public class ReviewInterface extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
 
         TextView ratingPlaceholder = findViewById(R.id.ratingReview);
+
+        RatingBar ratingBar = findViewById(R.id.ratingBarReview);
 
         EditText reviewEditText = findViewById(R.id.reviewEditText);
 
@@ -39,10 +53,25 @@ public class ReviewInterface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String reviewText = reviewEditText.getText().toString();
+                float rating = ratingBar.getRating();
+
+                if (!reviewText.isEmpty()) {
+
+                    User user = new User("John", "Doe", null,
+                            "967-11-11");
+                    Review newReview = new Review(user, reviewText, rating);
+                    reviewList.add(newReview);
+                    showToast("Review added: " + reviewText + ", rating: " + rating);
+                } else {
+                    showToast("Please write a valid review or make sure review isn't empty.");
+                }
             }
         });
 
     }
 
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
 }

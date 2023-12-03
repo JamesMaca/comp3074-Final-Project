@@ -4,9 +4,12 @@ public class Review {
     private User user;
     private String Review;
 
-    public Review(User user, String review) {
+    private float userRating;
+
+    public Review(User user, String review, float rating) {
         this.user = user;
         Review = review;
+        userRating = rating;
     }
 
     public User getUser() {
@@ -23,6 +26,14 @@ public class Review {
 
     public void setReview(String review) {
         Review = review;
+    }
+
+    public float getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(float rating) {
+        userRating = rating;
     }
 
     @Override

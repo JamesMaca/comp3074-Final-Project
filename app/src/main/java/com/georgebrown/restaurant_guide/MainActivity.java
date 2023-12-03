@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         // sample review
         Review sample_review= new Review(
                 sample_user_1,
-                "Nice cafe");
+                "Nice cafe", 4);
 
         // add sample review to a list of reviews
         reviewList.add(sample_review);
