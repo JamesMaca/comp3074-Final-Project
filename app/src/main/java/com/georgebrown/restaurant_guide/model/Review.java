@@ -1,7 +1,13 @@
 package com.georgebrown.restaurant_guide.model;
 
-public class Review {
-    private User user;
+import java.io.Serializable;
+
+public class Review implements Serializable {
+
+    //TO CHANGE
+        // change user to string
+        //
+    private String user;
     private String Review;
     private float rating;
 
