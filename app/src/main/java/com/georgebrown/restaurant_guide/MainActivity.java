@@ -21,22 +21,18 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.georgebrown.restaurant_guide.model.Address;
 import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
-import com.georgebrown.restaurant_guide.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Restaurant> restaurantList = new ArrayList<>();
+    ArrayList<Restaurant> restaurantList = new ArrayList<>();
     ListView restaurantListView;
     SearchView searchView;
     @Override
@@ -48,85 +44,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // ========= START ========
-        // Sample Data
-        List<Review> cafeReviewList = new ArrayList<>();
-        List<Review> sushiReviewList = new ArrayList<>();
+        String[] dailyHours = {
+                "monday_hours",
+                "tuesday_hours",
+                "wednesday_hours",
+                "thursday_hours",
+                "friday_hours",
+                "saturday_hours",
+                "sunday_hours"};
 
-        // sample restaurant address
-
-
-        // sample user info
-        User sample_user_1 = new User(
-                "John",
-                "Doe",
-                sample_usr_address_1,
-                "4167829812");
-
-        // cafe sample review
-        Review sample_review_1= new Review(
-                sample_user_1,
-                "Nice cafe",
-                4f);
-
-        Review sample_review_2= new Review(
-                sample_user_1,
-                "Nice cafe",
-                3f);
-
-        Review sample_review_3= new Review(
-                sample_user_1,
-                "Nice cafe",
-                3f);
-
-        // sushi sample review
-        Review sample_review_4= new Review(
-                sample_user_1,
-                "Delicious Sushi",
-                5f);
-
-        Review sample_review_5= new Review(
-                sample_user_1,
-                "Affordable Sushi",
-                5f);
-
-        Review sample_review_6= new Review(
-                sample_user_1,
-                "Friendly Staff",
-                4f);
-
-        // add sample review to a list of reviews
-        // cafe
-        cafeReviewList.add(sample_review_1);
-        cafeReviewList.add(sample_review_2);
-        cafeReviewList.add(sample_review_3);
-        // sushi
-        sushiReviewList.add(sample_review_4);
-        sushiReviewList.add(sample_review_5);
-        sushiReviewList.add(sample_review_6);
-
-        Restaurant sample_restaurant_1 = new Restaurant(
-                1,
+        Restaurant new_restaurant = new Restaurant(
                 "The GBCafe",
                 "Cafe",
-                sample_res_address_1,
+                "160 Kendall Avenue",
                 "$$",
-                cafeReviewList);
+                new ArrayList<>(),
+                dailyHours);
 
-        Restaurant sample_restaurant_2 = new Restaurant(
-                2,
-                "GBC Sushi",
-                "Sushi",
-                sample_res_address_1,
-                "$",
-                sushiReviewList);
+        restaurantList.add(new_restaurant);
 
-
-        // ========= END ========
-
-        //Add restaurant into the restaurant list
-        restaurantList.add(sample_restaurant_1);
-        restaurantList.add(sample_restaurant_2);
 
         // Search View
         searchView = findViewById(R.id.searchView);
@@ -245,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Restaurant Rating Count
             TextView ratingCount = homeRowView.findViewById(R.id.ratingCount);
-            ratingNumber.setText(String.valueOf(restaurant.getReview().size()));
+            ratingNumber.setText(String.valueOf(restaurant.getReviewList().size()));
 
             //Restaurant Price Estimate
             TextView priceEstimate = homeRowView.findViewById(R.id.priceEstimate);
@@ -256,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Forgot to add restaurant type in model
             typeAndAddress.setText( restaurant.getType() + " - "+
-                    restaurant.getAddress().getLocalAddress());
+                    restaurant.getAddress());
 
             //Restaurant Status and Closing Hours
             TextView restaurantHours = homeRowView.findViewById(R.id.restaurantHours);

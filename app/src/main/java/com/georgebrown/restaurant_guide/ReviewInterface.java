@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.georgebrown.restaurant_guide.model.Review;
-import com.georgebrown.restaurant_guide.model.User;
 
 import java.util.ArrayList;
 

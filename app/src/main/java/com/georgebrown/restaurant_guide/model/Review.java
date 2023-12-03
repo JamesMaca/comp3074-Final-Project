@@ -11,10 +11,9 @@ public class Review implements Serializable {
     private String Review;
     private float rating;
 
-
     private float userRating;
 
-    public Review(User user, String review, float rating) {
+    public Review(String user, String review, float rating) {
 
         this.user = user;
         this.rating = rating;
@@ -22,11 +21,11 @@ public class Review implements Serializable {
         userRating = rating;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
