@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 1,
                 "The GBCafe",
                 "Cafe",
-                sample_res_address_1,
+                "",
                 "$$",
                 cafeReviewList);
 
@@ -256,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Forgot to add restaurant type in model
             typeAndAddress.setText( restaurant.getType() + " - "+
-                    restaurant.getAddress().getLocalAddress());
+                    restaurant.getAddress());
 
             //Restaurant Status and Closing Hours
             TextView restaurantHours = homeRowView.findViewById(R.id.restaurantHours);

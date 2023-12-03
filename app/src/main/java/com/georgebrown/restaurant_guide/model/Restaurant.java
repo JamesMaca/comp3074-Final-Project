@@ -2,6 +2,7 @@ package com.georgebrown.restaurant_guide.model;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant implements Serializable {
@@ -22,9 +23,9 @@ public class Restaurant implements Serializable {
     public Restaurant(int _ID,
                       String name,
                       String type,
-                      com.georgebrown.restaurant_guide.model.Address address,
+                      String address,
                       String priceEstimation,
-                      List<Review> reviewList) {
+                      ArrayList<Review> reviewList) {
         this._ID = _ID;
         this.type = type;
         this.name = name;
@@ -58,11 +59,11 @@ public class Restaurant implements Serializable {
         this.type = type;
     }
 
-    public com.georgebrown.restaurant_guide.model.Address getAddress() {
+    public String getAddress() {
         return Address;
     }
 
-    public void setAddress(com.georgebrown.restaurant_guide.model.Address address) {
+    public void setAddress(String address) {
         Address = address;
     }
 
@@ -80,11 +81,11 @@ public class Restaurant implements Serializable {
 
     public void setRatings(float ratings) { this.ratings = ratings; }
 
-    public List<Review> getReview() {
+    public ArrayList<Review> getReview() {
         return reviewList;
     }
 
-    public void setReview(List<Review> reviewList) {
+    public void setReview(ArrayList<Review> reviewList) {
         this.reviewList = reviewList;
     }
 
