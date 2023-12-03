@@ -1,16 +1,23 @@
 package com.georgebrown.restaurant_guide.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
 
+    //TO CHANGE:
+        // auto gen id
+        // refctore to arraylist
+        //hours of opperation for each day of the week
+        // address to a string instead of object
     private int _ID;
     private String name;
     private String type;
-    private Address Address;
-    private float ratings;
+    private String Address;
+    private float ratings; //avg rating
     private String priceEstimation;
-    private List<Review> reviewList;
+    private ArrayList<Review> reviewList;
 
     public Restaurant(int _ID,
                       String name,
@@ -21,7 +28,7 @@ public class Restaurant {
         this._ID = _ID;
         this.type = type;
         this.name = name;
-        Address = address;
+        this.Address = address;
         this.priceEstimation = priceEstimation;
         this.reviewList = reviewList;
         ratings = setAverageRating();

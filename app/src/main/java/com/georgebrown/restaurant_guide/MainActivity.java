@@ -54,18 +54,7 @@ public class MainActivity extends AppCompatActivity {
         List<Review> sushiReviewList = new ArrayList<>();
 
         // sample restaurant address
-        Address sample_res_address_1 = new Address(
-                160,
-                "Kendal Avenue",
-                "Toronto",
-                "M5R 1M3");
 
-        // sample user address
-        Address sample_usr_address_1 = new Address(
-                344,
-                "Eglinton Avenue West",
-                "Toronto",
-                "M6B 1K2");
 
         // sample user info
         User sample_user_1 = new User(
@@ -154,7 +143,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, Details.class);
+//                intent.putExtra("restaurantName", restaurantList.get(position).getName());
+                Restaurant selectedRestaurant = restaurantList.get(position);
+
+                intent.putExtra("selectedRestaurant", selectedRestaurant);
+
                 startActivity(intent);
+
+
 //                Toast.makeText(getApplicationContext(),"Proceed to Details Page for " +
 
 //                        restaurantList.get(position).getName(),Toast.LENGTH_SHORT).show();

@@ -1,6 +1,8 @@
 package com.georgebrown.restaurant_guide.model;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
 
     private int streetNumber;
     private String streetName;

@@ -1,6 +1,8 @@
 package com.georgebrown.restaurant_guide.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String firstName;
     private String lastName;
     private Address address;
