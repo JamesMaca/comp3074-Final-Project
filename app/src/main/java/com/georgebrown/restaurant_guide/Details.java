@@ -27,7 +27,7 @@ public class Details extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-            ArrayList<Review> reviewList = selectedRestaurant.getReview();
+            ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
 
             //Name + Review
             TextView restaurant_name = findViewById(R.id.restaurante_name);
@@ -42,7 +42,7 @@ public class Details extends AppCompatActivity {
             TextView restaurant_address = findViewById(R.id.address);
             restaurant_address.setText(selectedRestaurant.getAddress());
 
-            //Hours or opertation
+            //Hours or operation
             TextView sunday = findViewById(R.id.sunday);
             TextView monday = findViewById(R.id.monday);
             TextView tuesday = findViewById(R.id.tuesday);
