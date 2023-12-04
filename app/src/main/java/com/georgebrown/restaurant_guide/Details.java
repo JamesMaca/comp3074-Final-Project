@@ -27,7 +27,7 @@ public class Details extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-            ArrayList<Review> reviewList = selectedRestaurant.getReview();
+            ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
 
             //Name + Review
             TextView restaurant_name = findViewById(R.id.restaurante_name);
@@ -43,6 +43,7 @@ public class Details extends AppCompatActivity {
             restaurant_address.setText(selectedRestaurant.getAddress());
 
             //Hours or opertation
+            String[] hoursOfOperation = selectedRestaurant.getHoursOfOperation();
             TextView sunday = findViewById(R.id.sunday);
             TextView monday = findViewById(R.id.monday);
             TextView tuesday = findViewById(R.id.tuesday);
@@ -50,6 +51,15 @@ public class Details extends AppCompatActivity {
             TextView thursday = findViewById(R.id.thursday);
             TextView friday = findViewById(R.id.friday);
             TextView saturday = findViewById(R.id.saturday);
+
+            sunday.setText("Sunday - " + hoursOfOperation[0]);
+            monday.setText("Monday - " + hoursOfOperation[1]);
+            tuesday.setText("Tuesday - " + hoursOfOperation[2]);
+            wednesday.setText("Wednesday - " + hoursOfOperation[3]);
+            thursday.setText("Thursday - " + hoursOfOperation[4]);
+            friday.setText("Friday - " + hoursOfOperation[5]);
+            saturday.setText("Saturday - " + hoursOfOperation[6]);
+
 
             //Review1
             TextView review1_username = findViewById(R.id.review1_username);
@@ -60,7 +70,7 @@ public class Details extends AppCompatActivity {
             Float reviewRating1 = reviewList.get(0).getRating();
             String reviewComment1 = reviewList.get(0).getReview();
 
-            review1_username.setText(reviewUser1 + " - ");
+            review1_username.setText(reviewUser1 + " ");
             review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
             review1_review.setText(reviewComment1);
 
@@ -73,7 +83,7 @@ public class Details extends AppCompatActivity {
             Float reviewRating2 = reviewList.get(reviewList.size() -1).getRating();
             String reviewComment2 = reviewList.get(reviewList.size() -1).getReview();
 
-            review2_username.setText(reviewUser2 + " - ");
+            review2_username.setText(reviewUser2 + " ");
             review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
             review2_review.setText(reviewComment2);
 
