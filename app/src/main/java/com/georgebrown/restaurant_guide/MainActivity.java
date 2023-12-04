@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-
+import android.util.Log;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,85 +48,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // ========= START ========
-        // Sample Data
-        List<Review> cafeReviewList = new ArrayList<>();
-        List<Review> sushiReviewList = new ArrayList<>();
 
-        // sample restaurant address
+        String[] dailyHours = {
+                "monday_hours",
+                "tuesday_hours",
+                "wednesday_hours",
+                "thursday_hours",
+                "friday_hours",
+                "saturday_hours",
+                "sunday_hours"};
 
-
-        // sample user info
-        User sample_user_1 = new User(
-                "John",
-                "Doe",
-                sample_usr_address_1,
-                "4167829812");
-
-        // cafe sample review
-        Review sample_review_1= new Review(
-                sample_user_1,
-                "Nice cafe",
-                4f);
-
-        Review sample_review_2= new Review(
-                sample_user_1,
-                "Nice cafe",
-                3f);
-
-        Review sample_review_3= new Review(
-                sample_user_1,
-                "Nice cafe",
-                3f);
-
-        // sushi sample review
-        Review sample_review_4= new Review(
-                sample_user_1,
-                "Delicious Sushi",
-                5f);
-
-        Review sample_review_5= new Review(
-                sample_user_1,
-                "Affordable Sushi",
-                5f);
-
-        Review sample_review_6= new Review(
-                sample_user_1,
-                "Friendly Staff",
-                4f);
-
-        // add sample review to a list of reviews
-        // cafe
-        cafeReviewList.add(sample_review_1);
-        cafeReviewList.add(sample_review_2);
-        cafeReviewList.add(sample_review_3);
-        // sushi
-        sushiReviewList.add(sample_review_4);
-        sushiReviewList.add(sample_review_5);
-        sushiReviewList.add(sample_review_6);
-
-        Restaurant sample_restaurant_1 = new Restaurant(
-                1,
+        Restaurant new_restaurant = new Restaurant(
                 "The GBCafe",
                 "Cafe",
-                sample_res_address_1,
+                "160 Kendall Avenue",
                 "$$",
-                cafeReviewList);
+                new ArrayList<>(),
+                dailyHours);
 
-        Restaurant sample_restaurant_2 = new Restaurant(
-                2,
-                "GBC Sushi",
-                "Sushi",
-                sample_res_address_1,
-                "$",
-                sushiReviewList);
-
-
-        // ========= END ========
-
-        //Add restaurant into the restaurant list
-        restaurantList.add(sample_restaurant_1);
-        restaurantList.add(sample_restaurant_2);
+        restaurantList.add(new_restaurant);
 
         // Search View
         searchView = findViewById(R.id.searchView);
@@ -175,6 +115,17 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
+            if (selectedRestaurant != null) {
+                // Log statement to check the state of selectedRestaurant
+                Log.d("MainActivity", "Selected Restaurant: " + selectedRestaurant.getName());
+                // Continue with your logic if needed
+            }
+        }
+
     }
 
     @Override
@@ -203,13 +154,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private class HomeAdapter extends ArrayAdapter<Restaurant> implements Filterable {
+    public class HomeAdapter extends ArrayAdapter<Restaurant> {
+
         private Context context;
         private List<Restaurant> restaurantList;
         private List<Restaurant> filteredRestaurantList;
 
-        public HomeAdapter(Context context, List<Restaurant> restaurantList){
-            super(context,R.layout.home_row_layout,restaurantList);
+        public HomeAdapter(@NonNull Context context, @NonNull List<Restaurant> restaurantList) {
+            super(context, R.layout.home_row_layout, restaurantList);
 
             this.context = context;
             this.restaurantList = restaurantList;
@@ -218,50 +170,46 @@ public class MainActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView,
-                            @NonNull ViewGroup parent) {
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View homeRowView = null;
 
-            LayoutInflater inflater =
-                    (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            homeRowView = inflater.inflate(R.layout.home_row_layout,parent,false);
+            homeRowView = inflater.inflate(R.layout.home_row_layout, parent, false);
 
             Restaurant restaurant = filteredRestaurantList.get(position);
 
-            //NOTE: Still need to configure the restaurant model to store a picture
+            // Restaurant Image
+            //ImageView restaurantImage = homeRowView.findViewById(R.id.restaurantImage);
+            //TODO: Configure image loading from a URL
 
-            //Restaurant name
+            // Restaurant name
             TextView restaurantName = homeRowView.findViewById(R.id.restaurantName);
             restaurantName.setText(restaurant.getName());
 
-            //Restaurant Rating Star
+            // Restaurant Rating Star
             RatingBar ratingStar = homeRowView.findViewById(R.id.ratingBar);
             ratingStar.setRating(restaurant.getRatings());
 
-            //Restaurant Rating Number
+            // Restaurant Rating Number
             TextView ratingNumber = homeRowView.findViewById(R.id.ratingNumber);
             ratingNumber.setText(String.valueOf(restaurant.getRatings()));
 
-            //Restaurant Rating Count
+            // Restaurant Rating Count
             TextView ratingCount = homeRowView.findViewById(R.id.ratingCount);
-            ratingNumber.setText(String.valueOf(restaurant.getReview().size()));
+            ratingCount.setText(String.valueOf(restaurant.getReviewList().size()));
 
-            //Restaurant Price Estimate
+
+            // Restaurant Price Estimate
             TextView priceEstimate = homeRowView.findViewById(R.id.priceEstimate);
             priceEstimate.setText(restaurant.getPriceEstimation());
 
-            //Restaurant Type and Address
+            // Restaurant Type and Address
             TextView typeAndAddress = homeRowView.findViewById(R.id.typeAndAddress);
+            typeAndAddress.setText(restaurant.getType() + " - " + restaurant.getAddress());
 
-            // Forgot to add restaurant type in model
-            typeAndAddress.setText( restaurant.getType() + " - "+
-                    restaurant.getAddress().getLocalAddress());
-
-            //Restaurant Status and Closing Hours
+            // Restaurant Status and Closing Hours
             TextView restaurantHours = homeRowView.findViewById(R.id.restaurantHours);
-
-            // need to do some logic for when the restaurant is close or open
             restaurantHours.setText("Open" + " - " + "Closes " + "10 p.m.");
 
             return homeRowView;

@@ -2,15 +2,18 @@ package com.georgebrown.restaurant_guide.model;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Restaurant implements Serializable {
 
     //TO CHANGE:
-        // auto gen id
-        // refctore to arraylist
-        //hours of opperation for each day of the week
-        // address to a string instead of object
+    // auto gen id
+    // refctore to arraylist
+    //hours of opperation for each day of the week
+    // address to a string instead of object
+    private static int restaurantCount = 0;
     private int _ID;
     private String name;
     private String type;
@@ -18,19 +21,23 @@ public class Restaurant implements Serializable {
     private float ratings; //avg rating
     private String priceEstimation;
     private ArrayList<Review> reviewList;
+    private String[] dailyHours = new String[7];
 
-    public Restaurant(int _ID,
-                      String name,
+
+    public Restaurant(String name,
                       String type,
-                      com.georgebrown.restaurant_guide.model.Address address,
+                      String address,
                       String priceEstimation,
-                      List<Review> reviewList) {
-        this._ID = _ID;
+                      ArrayList<Review> reviewList,
+                      String[] dailyHours) {
+        restaurantCount++;
+        this._ID = restaurantCount;
         this.type = type;
         this.name = name;
         this.Address = address;
-        this.priceEstimation = priceEstimation;
+        this.priceEstimation = "$$";
         this.reviewList = reviewList;
+        this.dailyHours = dailyHours;
         ratings = setAverageRating();
     }
 
@@ -58,11 +65,11 @@ public class Restaurant implements Serializable {
         this.type = type;
     }
 
-    public com.georgebrown.restaurant_guide.model.Address getAddress() {
+    public String getAddress() {
         return Address;
     }
 
-    public void setAddress(com.georgebrown.restaurant_guide.model.Address address) {
+    public void setAddress(String address) {
         Address = address;
     }
 
@@ -80,11 +87,11 @@ public class Restaurant implements Serializable {
 
     public void setRatings(float ratings) { this.ratings = ratings; }
 
-    public List<Review> getReview() {
+    public ArrayList<Review> getReviewList() {
         return reviewList;
     }
 
-    public void setReview(List<Review> reviewList) {
+    public void setReviewList(ArrayList<Review> reviewList) {
         this.reviewList = reviewList;
     }
 
@@ -96,16 +103,30 @@ public class Restaurant implements Serializable {
         return resAvgRating/reviewList.size();
     }
 
+    public String[] getDailyHours() {
+        return dailyHours;
+    }
+
+    public void setDailyHours(String[] dailyHours) {
+        this.dailyHours = dailyHours;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
                 "_ID=" + _ID +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
-                ", Address=" + Address +
-                ", ratings=" + ratings +
+                ", Address='" + Address + '\'' +
+                ", ratings=" + ratings + '\'' +
                 ", priceEstimation='" + priceEstimation + '\'' +
-                ", reviewList=" + reviewList +
-                '}';
+                ", reviewList=" + reviewList + '\'' +
+                ", mondayHours=" + dailyHours[0] + '\'' +
+                ", tuesdayHours=" + dailyHours[1] + '\'' +
+                ", wednesdayHours=" + dailyHours[2] + '\'' +
+                ", thursdayHours=" + dailyHours[3] + '\'' +
+                ", fridayHours=" + dailyHours[4] + '\'' +
+                ", saturdayHours=" + dailyHours[5] + '\'' +
+                ", sundayHours=" + dailyHours[6] + '}';
     }
 }

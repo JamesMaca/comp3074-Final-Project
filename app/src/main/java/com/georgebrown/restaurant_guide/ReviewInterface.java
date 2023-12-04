@@ -56,8 +56,7 @@ public class ReviewInterface extends AppCompatActivity {
                 float rating = ratingBar.getRating();
 
                 if (!reviewText.isEmpty()) {
-                    User user = new User("John", "Doe", null,
-                            "967-11-11");
+                    String user = "John";
                     Review newReview = new Review(user, reviewText, rating);
                     reviewList.add(newReview);
                     showToast("Review added: " + reviewText + ", rating: " + rating);
