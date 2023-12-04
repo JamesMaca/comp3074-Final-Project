@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
 
 public class Restaurant implements Serializable {
 
@@ -21,23 +21,22 @@ public class Restaurant implements Serializable {
     private float ratings; //avg rating
     private String priceEstimation;
     private ArrayList<Review> reviewList;
-    private String[] dailyHours;
+    private String[] hoursOfOperation;
 
 
     public Restaurant(String name,
                       String type,
                       String address,
                       String priceEstimation,
-                      ArrayList<Review> reviewList,
-                      String[] dailyHours) {
+                      String[] hoursOfOperation) {
         restaurantCount++;
         this._ID = restaurantCount;
         this.type = type;
         this.name = name;
         this.Address = address;
         this.priceEstimation = priceEstimation;
-        this.reviewList = reviewList;
-        this.dailyHours = dailyHours;
+        this.reviewList = new ArrayList<>();
+        this.hoursOfOperation = hoursOfOperation;
         ratings = setAverageRating();
     }
 
@@ -82,7 +81,7 @@ public class Restaurant implements Serializable {
     }
 
     public float getRatings() {
-        return ratings;
+        return Float.parseFloat(String.format("%.1f", ratings));
     }
 
     public void setRatings(float ratings) { this.ratings = ratings; }
@@ -103,12 +102,17 @@ public class Restaurant implements Serializable {
         return resAvgRating/reviewList.size();
     }
 
-    public String[] getDailyHours() {
-        return dailyHours;
+    public String[] getHoursOfOperation() {
+        return hoursOfOperation;
     }
 
-    public void setDailyHours(String[] dailyHours) {
-        this.dailyHours = dailyHours;
+    public void setHoursOfOperation(String[] hoursOfOperation) {
+        this.hoursOfOperation = hoursOfOperation;
+    }
+
+    public void addReview(Review review){
+        reviewList.add(review);
+        ratings = setAverageRating();
     }
 
     @Override
@@ -121,7 +125,7 @@ public class Restaurant implements Serializable {
                 ", ratings=" + ratings +
                 ", priceEstimation='" + priceEstimation + '\'' +
                 ", reviewList=" + reviewList +
-                ", dailyHours=" + Arrays.toString(dailyHours) +
+                ", hoursOfOperation=" + Arrays.toString(hoursOfOperation) +
                 '}';
     }
 }
