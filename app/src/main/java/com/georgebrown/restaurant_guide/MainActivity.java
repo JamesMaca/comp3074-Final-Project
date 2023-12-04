@@ -58,33 +58,33 @@ public class MainActivity extends AppCompatActivity {
 
         // cafe sample review
         Review sample_review_1= new Review(
-                "sample_user_1",
+                "Eleanor Quinn",
                 "Nice cafe",
                 4f);
 
         Review sample_review_2= new Review(
-                "sample_user_2",
+                "Miles Rodriguez",
                 "Nice cafe",
                 3f);
 
         Review sample_review_3= new Review(
-                "sample_user_3",
+                "Aurora Chang",
                 "Nice cafe",
                 3f);
 
         // sushi sample review
         Review sample_review_4= new Review(
-                "sample_user_1",
+                "Caleb Harper",
                 "Delicious Sushi",
                 5f);
 
         Review sample_review_5= new Review(
-                "sample_user_1",
+                "Isabella Jensen",
                 "Affordable Sushi",
                 5f);
 
         Review sample_review_6= new Review(
-                "sample_user_1",
+                "Malik Thompson",
                 "Friendly Staff",
                 4f);
 
@@ -93,14 +93,14 @@ public class MainActivity extends AppCompatActivity {
         Restaurant The_GBCafe = new Restaurant(
                 "The GBCafe",
                 "Cafe",
-                "6415, Steeles Avenue East",
+                "6415, Steeles Avenue East, Toronto",
                 "$$",
                 hoursOfOperation);
 
         Restaurant GBC_Sushi = new Restaurant(
                 "GBC Sushi",
                 "Sushi",
-                "6415, Steeles Avenue East",
+                "111 King Street West, Toronto",
                 "$$",
                 hoursOfOperation);
 
