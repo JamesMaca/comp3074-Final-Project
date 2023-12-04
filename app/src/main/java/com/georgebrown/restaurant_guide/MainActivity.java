@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,22 +21,20 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.georgebrown.restaurant_guide.model.Address;
 import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
-import com.georgebrown.restaurant_guide.model.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.Intent;
-import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Restaurant> restaurantList = new ArrayList<>();
+    ArrayList<Restaurant> restaurantList = new ArrayList<>();
     ListView restaurantListView;
     SearchView searchView;
     @Override
@@ -48,25 +46,80 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String[] hoursOfOperation = {
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "10AM - 6PM",
+                "CLOSED"};
 
-        String[] dailyHours = {
-                "monday_hours",
-                "tuesday_hours",
-                "wednesday_hours",
-                "thursday_hours",
-                "friday_hours",
-                "saturday_hours",
-                "sunday_hours"};
 
-        Restaurant new_restaurant = new Restaurant(
+        // cafe sample review
+        Review sample_review_1= new Review(
+                "Eleanor Quinn",
+                "Nice cafe",
+                4f);
+
+        Review sample_review_2= new Review(
+                "Miles Rodriguez",
+                "Nice cafe",
+                3f);
+
+        Review sample_review_3= new Review(
+                "Aurora Chang",
+                "Nice cafe",
+                3f);
+
+        // sushi sample review
+        Review sample_review_4= new Review(
+                "Caleb Harper",
+                "Delicious Sushi",
+                5f);
+
+        Review sample_review_5= new Review(
+                "Isabella Jensen",
+                "Affordable Sushi",
+                5f);
+
+        Review sample_review_6= new Review(
+                "Malik Thompson",
+                "Friendly Staff",
+                4f);
+
+
+
+        Restaurant The_GBCafe = new Restaurant(
                 "The GBCafe",
                 "Cafe",
-                "160 Kendall Avenue",
+                "6415, Steeles Avenue East, Toronto",
                 "$$",
-                new ArrayList<>(),
-                dailyHours);
+                hoursOfOperation);
 
-        restaurantList.add(new_restaurant);
+        Restaurant GBC_Sushi = new Restaurant(
+                "GBC Sushi",
+                "Sushi",
+                "111 King Street West, Toronto",
+                "$$",
+                hoursOfOperation);
+
+        //GBCafe
+        The_GBCafe.addReview(sample_review_1);
+        The_GBCafe.addReview(sample_review_2);
+        The_GBCafe.addReview(sample_review_3);
+
+
+        //GBC SUSHI
+        GBC_Sushi.addReview(sample_review_4);
+        GBC_Sushi.addReview(sample_review_5);
+        GBC_Sushi.addReview(sample_review_6);
+
+
+        restaurantList.add(The_GBCafe);
+        restaurantList.add(GBC_Sushi);
+
+
 
         // Search View
         searchView = findViewById(R.id.searchView);
@@ -115,17 +168,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-            if (selectedRestaurant != null) {
-                // Log statement to check the state of selectedRestaurant
-                Log.d("MainActivity", "Selected Restaurant: " + selectedRestaurant.getName());
-                // Continue with your logic if needed
-            }
-        }
-
     }
 
     @Override
@@ -154,13 +196,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public class HomeAdapter extends ArrayAdapter<Restaurant> {
-
+    private class HomeAdapter extends ArrayAdapter<Restaurant> implements Filterable {
         private Context context;
         private List<Restaurant> restaurantList;
         private List<Restaurant> filteredRestaurantList;
 
-        public HomeAdapter(@NonNull Context context, @NonNull List<Restaurant> restaurantList) {
+        public HomeAdapter(Context context, List<Restaurant> restaurantList) {
             super(context, R.layout.home_row_layout, restaurantList);
 
             this.context = context;
@@ -170,47 +211,53 @@ public class MainActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(int position, @Nullable View convertView,
+                            @NonNull ViewGroup parent) {
+
             View homeRowView = null;
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater =
+                    (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             homeRowView = inflater.inflate(R.layout.home_row_layout, parent, false);
 
             Restaurant restaurant = filteredRestaurantList.get(position);
 
-            // Restaurant Image
-            //ImageView restaurantImage = homeRowView.findViewById(R.id.restaurantImage);
-            //TODO: Configure image loading from a URL
+            //Get the current time
+            Calendar calendar = Calendar.getInstance();
 
-            // Restaurant name
+            //NOTE: Still need to configure the restaurant model to store a picture
+
+            //Restaurant name
             TextView restaurantName = homeRowView.findViewById(R.id.restaurantName);
             restaurantName.setText(restaurant.getName());
 
-            // Restaurant Rating Star
+            //Restaurant Rating Star
             RatingBar ratingStar = homeRowView.findViewById(R.id.ratingBar);
             ratingStar.setRating(restaurant.getRatings());
 
-            // Restaurant Rating Number
+            //Restaurant Rating Number
             TextView ratingNumber = homeRowView.findViewById(R.id.ratingNumber);
             ratingNumber.setText(String.valueOf(restaurant.getRatings()));
 
-            // Restaurant Rating Count
+            //Restaurant Rating Count
             TextView ratingCount = homeRowView.findViewById(R.id.ratingCount);
             ratingCount.setText(String.valueOf(restaurant.getReviewList().size()));
 
-
-            // Restaurant Price Estimate
+            //Restaurant Price Estimate
             TextView priceEstimate = homeRowView.findViewById(R.id.priceEstimate);
             priceEstimate.setText(restaurant.getPriceEstimation());
 
-            // Restaurant Type and Address
+            //Restaurant Type and Address
             TextView typeAndAddress = homeRowView.findViewById(R.id.typeAndAddress);
-            typeAndAddress.setText(restaurant.getType() + " - " + restaurant.getAddress());
+            typeAndAddress.setText(restaurant.getType() + " - " +
+                    restaurant.getAddress());
 
-            // Restaurant Status and Closing Hours
+            //Restaurant Status and Closing Hours
             TextView restaurantHours = homeRowView.findViewById(R.id.restaurantHours);
-            restaurantHours.setText("Open" + " - " + "Closes " + "10 p.m.");
+
+            // need to do some logic for when the restaurant is close or open
+            restaurantHours.setText(getHoursOfOperationToday(restaurant, calendar.get(Calendar.DAY_OF_WEEK)));
 
             return homeRowView;
         }
@@ -249,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         }
+
         @Override
         public int getCount() {
             return filteredRestaurantList.size();
@@ -264,6 +312,25 @@ public class MainActivity extends AppCompatActivity {
         public long getItemId(int position) {
             return position;
         }
-    }
 
+        private String getHoursOfOperationToday(Restaurant restaurant, int dayOfWeek) {
+            switch (dayOfWeek) {
+                case Calendar.MONDAY:
+                    return restaurant.getHoursOfOperation()[0];
+                case Calendar.TUESDAY:
+                    return restaurant.getHoursOfOperation()[1];
+                case Calendar.WEDNESDAY:
+                    return restaurant.getHoursOfOperation()[2];
+                case Calendar.THURSDAY:
+                    return restaurant.getHoursOfOperation()[3];
+                case Calendar.FRIDAY:
+                    return restaurant.getHoursOfOperation()[4];
+                case Calendar.SATURDAY:
+                    return restaurant.getHoursOfOperation()[5];
+                case Calendar.SUNDAY:
+                    return restaurant.getHoursOfOperation()[6];
+            }
+            return "Not Available";
+        }
+    }
 }

@@ -12,18 +12,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
-import com.georgebrown.restaurant_guide.model.User;
 
 import java.util.ArrayList;
 
 public class ReviewInterface extends AppCompatActivity {
-
-    private ArrayList<Review> reviewList = new ArrayList<>();
-
-    public ArrayList<Review> getReviewList() {
-        return reviewList;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +37,16 @@ public class ReviewInterface extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.submitReview);
 
+        Intent intent = getIntent();
+        if(intent != null){
+            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
+            ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
+
+            TextView restaurant_name = findViewById(R.id.reviewTitleView);
+////            restaurant_name.setText(selectedRestaurant.getName());
+            restaurant_name.setText(selectedRestaurant.getName());
+        }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,9 +60,18 @@ public class ReviewInterface extends AppCompatActivity {
                 float rating = ratingBar.getRating();
 
                 if (!reviewText.isEmpty()) {
-                    String user = "John";
-                    Review newReview = new Review(user, reviewText, rating);
+
+                    Review newReview = new Review("Johndoe123", reviewText, rating);
+                    Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
+                    ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
                     reviewList.add(newReview);
+
+
+                    Intent resultIntent = new Intent(ReviewInterface.this, Details.class);
+                    resultIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                    startActivity(resultIntent);
+
+
                     showToast("Review added: " + reviewText + ", rating: " + rating);
                 } else {
                     showToast("Please write a valid review or make sure review isn't empty.");
