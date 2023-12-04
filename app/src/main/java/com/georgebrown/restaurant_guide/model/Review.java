@@ -9,7 +9,6 @@ public class Review implements Serializable {
     private String Review;
     private float rating;
 
-
     private float userRating;
 
     public Review(String user, String review, float rating) {

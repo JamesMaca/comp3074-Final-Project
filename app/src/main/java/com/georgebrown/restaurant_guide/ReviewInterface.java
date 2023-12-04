@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
-import com.georgebrown.restaurant_guide.model.User;
 
 import java.util.ArrayList;
 
@@ -67,8 +66,9 @@ public class ReviewInterface extends AppCompatActivity {
                 float rating = ratingBar.getRating();
 
                 if (!reviewText.isEmpty()) {
-                    String user = "John";
-                    Review newReview = new Review(user, reviewText, rating);
+
+                    Review newReview = new Review("Johndoe123", reviewText, rating);
+
                     reviewList.add(newReview);
                     showToast("Review added: " + reviewText + ", rating: " + rating);
                 } else {

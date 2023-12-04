@@ -21,18 +21,16 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.georgebrown.restaurant_guide.model.Address;
 import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
-import com.georgebrown.restaurant_guide.model.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.Intent;
-import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,96 +46,80 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // ========= START ========
-        // Sample Data
-        ArrayList<Review> cafeReviewList = new ArrayList<>();
-        ArrayList<Review> sushiReviewList = new ArrayList<>();
+        String[] hoursOfOperation = {
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "8AM - 10PM",
+                "10AM - 6PM",
+                "CLOSED"};
 
-        // sample restaurant address
-        Address sample_res_address_1 = new Address(
-                160,
-                "Kendal Avenue",
-                "Toronto",
-                "M5R 1M3");
-
-        // sample user address
-        Address sample_usr_address_1 = new Address(
-                344,
-                "Eglinton Avenue West",
-                "Toronto",
-                "M6B 1K2");
-
-        // sample user info
-        User sample_user_1 = new User(
-                "John",
-                "Doe",
-                sample_usr_address_1,
-                "4167829812");
 
         // cafe sample review
         Review sample_review_1= new Review(
-                "josh",
+                "sample_user_1",
                 "Nice cafe",
                 4f);
 
         Review sample_review_2= new Review(
-                "james",
+                "sample_user_2",
                 "Nice cafe",
                 3f);
 
         Review sample_review_3= new Review(
-                "vincent",
+                "sample_user_3",
                 "Nice cafe",
                 3f);
 
         // sushi sample review
         Review sample_review_4= new Review(
-                "Ritchell",
+                "sample_user_1",
                 "Delicious Sushi",
                 5f);
 
         Review sample_review_5= new Review(
-                "Stefan",
+                "sample_user_1",
                 "Affordable Sushi",
                 5f);
 
         Review sample_review_6= new Review(
-                "Pritesh",
+                "sample_user_1",
                 "Friendly Staff",
                 4f);
 
-        // add sample review to a list of reviews
-        // cafe
-        cafeReviewList.add(sample_review_1);
-        cafeReviewList.add(sample_review_2);
-        cafeReviewList.add(sample_review_3);
-        // sushi
-        sushiReviewList.add(sample_review_4);
-        sushiReviewList.add(sample_review_5);
-        sushiReviewList.add(sample_review_6);
 
-        Restaurant sample_restaurant_1 = new Restaurant(
-                1,
+
+        Restaurant The_GBCafe = new Restaurant(
                 "The GBCafe",
                 "Cafe",
                 "6415, Steeles Avenue East",
                 "$$",
-                cafeReviewList);
+                hoursOfOperation);
 
-        Restaurant sample_restaurant_2 = new Restaurant(
-                2,
+        Restaurant GBC_Sushi = new Restaurant(
                 "GBC Sushi",
                 "Sushi",
                 "6415, Steeles Avenue East",
-                "$",
-                sushiReviewList);
+                "$$",
+                hoursOfOperation);
+
+        //GBCafe
+        The_GBCafe.addReview(sample_review_1);
+        The_GBCafe.addReview(sample_review_2);
+        The_GBCafe.addReview(sample_review_3);
 
 
-        // ========= END ========
+        //GBC SUSHI
+        GBC_Sushi.addReview(sample_review_4);
+        GBC_Sushi.addReview(sample_review_5);
+        GBC_Sushi.addReview(sample_review_6);
 
-        //Add restaurant into the restaurant list
-        restaurantList.add(sample_restaurant_1);
-        restaurantList.add(sample_restaurant_2);
+
+        restaurantList.add(The_GBCafe);
+        restaurantList.add(GBC_Sushi);
+
+
 
         // Search View
         searchView = findViewById(R.id.searchView);
@@ -219,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
         private List<Restaurant> restaurantList;
         private List<Restaurant> filteredRestaurantList;
 
-        public HomeAdapter(Context context, List<Restaurant> restaurantList){
-            super(context,R.layout.home_row_layout,restaurantList);
+        public HomeAdapter(Context context, List<Restaurant> restaurantList) {
+            super(context, R.layout.home_row_layout, restaurantList);
 
             this.context = context;
             this.restaurantList = restaurantList;
@@ -231,14 +213,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView,
                             @NonNull ViewGroup parent) {
+
             View homeRowView = null;
 
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            homeRowView = inflater.inflate(R.layout.home_row_layout,parent,false);
+            homeRowView = inflater.inflate(R.layout.home_row_layout, parent, false);
 
             Restaurant restaurant = filteredRestaurantList.get(position);
+
+            //Get the current time
+            Calendar calendar = Calendar.getInstance();
 
             //NOTE: Still need to configure the restaurant model to store a picture
 
@@ -256,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Restaurant Rating Count
             TextView ratingCount = homeRowView.findViewById(R.id.ratingCount);
-            ratingNumber.setText(String.valueOf(restaurant.getReview().size()));
+            ratingCount.setText(String.valueOf(restaurant.getReviewList().size()));
 
             //Restaurant Price Estimate
             TextView priceEstimate = homeRowView.findViewById(R.id.priceEstimate);
@@ -264,16 +250,14 @@ public class MainActivity extends AppCompatActivity {
 
             //Restaurant Type and Address
             TextView typeAndAddress = homeRowView.findViewById(R.id.typeAndAddress);
-
-            // Forgot to add restaurant type in model
-            typeAndAddress.setText( restaurant.getType() + " - "+
+            typeAndAddress.setText(restaurant.getType() + " - " +
                     restaurant.getAddress());
 
             //Restaurant Status and Closing Hours
             TextView restaurantHours = homeRowView.findViewById(R.id.restaurantHours);
 
             // need to do some logic for when the restaurant is close or open
-            restaurantHours.setText("Open" + " - " + "Closes " + "10 p.m.");
+            restaurantHours.setText(getHoursOfOperationToday(restaurant, calendar.get(Calendar.DAY_OF_WEEK)));
 
             return homeRowView;
         }
@@ -312,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         }
+
         @Override
         public int getCount() {
             return filteredRestaurantList.size();
@@ -327,6 +312,25 @@ public class MainActivity extends AppCompatActivity {
         public long getItemId(int position) {
             return position;
         }
-    }
 
+        private String getHoursOfOperationToday(Restaurant restaurant, int dayOfWeek) {
+            switch (dayOfWeek) {
+                case Calendar.MONDAY:
+                    return restaurant.getHoursOfOperation()[0];
+                case Calendar.TUESDAY:
+                    return restaurant.getHoursOfOperation()[1];
+                case Calendar.WEDNESDAY:
+                    return restaurant.getHoursOfOperation()[2];
+                case Calendar.THURSDAY:
+                    return restaurant.getHoursOfOperation()[3];
+                case Calendar.FRIDAY:
+                    return restaurant.getHoursOfOperation()[4];
+                case Calendar.SATURDAY:
+                    return restaurant.getHoursOfOperation()[5];
+                case Calendar.SUNDAY:
+                    return restaurant.getHoursOfOperation()[6];
+            }
+            return "Not Available";
+        }
+    }
 }
