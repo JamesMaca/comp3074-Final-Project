@@ -80,7 +80,6 @@ public class add_restaurant extends AppCompatActivity {
                         type,
                         address,
                         "$$",
-                        new ArrayList<>(),
                         new String[]{mondayText,tuesdayText,wednesdayText,thursdayText,fridayText,
                                     saturdayText,sundayText});
 
