@@ -34,6 +34,7 @@ public class ReviewInterface extends AppCompatActivity {
         RatingBar ratingBar = findViewById(R.id.ratingBarReview);
 
         EditText reviewEditText = findViewById(R.id.reviewEditText);
+        EditText usernameEditText = findViewById(R.id.usernameEditText);
 
         Button submitButton = findViewById(R.id.submitReview);
 
@@ -57,11 +58,12 @@ public class ReviewInterface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String reviewText = reviewEditText.getText().toString();
+                String usernameText = usernameEditText.getText().toString();
                 float rating = ratingBar.getRating();
 
                 if (!reviewText.isEmpty()) {
 
-                    Review newReview = new Review("Johndoe123", reviewText, rating);
+                    Review newReview = new Review(usernameText, reviewText, rating);
                     Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
                     ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
                     reviewList.add(newReview);

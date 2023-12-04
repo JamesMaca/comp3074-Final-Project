@@ -5,6 +5,7 @@
     <string name="review_pageTitle">Make Review</string>
     <string name="rating_placeholder">Make Rating</string>
     <string name="write_review">Write Review</string>
+    <string name="placeholder_username">Username here</string>
     <string name="placeholder_review">Write your review here</string>
     <string name="submit">Submit Review</string>
 

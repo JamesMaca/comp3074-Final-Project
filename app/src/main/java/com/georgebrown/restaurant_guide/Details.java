@@ -128,6 +128,8 @@ public class Details extends AppCompatActivity {
                 if(intent != null) {
                     Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
                     Intent reviewIntent = new Intent(Details.this, ReviewInterface.class);
+
+
                     reviewIntent.putExtra("selectedRestaurant", selectedRestaurant);
 
                     startActivity(reviewIntent);
