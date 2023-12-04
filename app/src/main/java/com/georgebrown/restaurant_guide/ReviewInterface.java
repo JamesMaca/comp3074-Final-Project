@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
 import com.georgebrown.restaurant_guide.model.User;
 
@@ -43,6 +44,16 @@ public class ReviewInterface extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.submitReview);
 
+        Intent intent = getIntent();
+        if(intent != null){
+            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
+            //            String restaurantName = intent.getStringExtra("restaurantName");
+////            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("restaurant");
+            TextView restaurant_name = findViewById(R.id.reviewTitleView);
+////            restaurant_name.setText(selectedRestaurant.getName());
+            restaurant_name.setText(selectedRestaurant.getName());
+        }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,8 +67,7 @@ public class ReviewInterface extends AppCompatActivity {
                 float rating = ratingBar.getRating();
 
                 if (!reviewText.isEmpty()) {
-                    User user = new User("John", "Doe", null,
-                            "967-11-11");
+                    String user = "John";
                     Review newReview = new Review(user, reviewText, rating);
                     reviewList.add(newReview);
                     showToast("Review added: " + reviewText + ", rating: " + rating);

@@ -36,7 +36,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Restaurant> restaurantList = new ArrayList<>();
+    ArrayList<Restaurant> restaurantList = new ArrayList<>();
     ListView restaurantListView;
     SearchView searchView;
     @Override
@@ -50,11 +50,22 @@ public class MainActivity extends AppCompatActivity {
 
         // ========= START ========
         // Sample Data
-        List<Review> cafeReviewList = new ArrayList<>();
-        List<Review> sushiReviewList = new ArrayList<>();
+        ArrayList<Review> cafeReviewList = new ArrayList<>();
+        ArrayList<Review> sushiReviewList = new ArrayList<>();
 
         // sample restaurant address
+        Address sample_res_address_1 = new Address(
+                160,
+                "Kendal Avenue",
+                "Toronto",
+                "M5R 1M3");
 
+        // sample user address
+        Address sample_usr_address_1 = new Address(
+                344,
+                "Eglinton Avenue West",
+                "Toronto",
+                "M6B 1K2");
 
         // sample user info
         User sample_user_1 = new User(
@@ -65,33 +76,33 @@ public class MainActivity extends AppCompatActivity {
 
         // cafe sample review
         Review sample_review_1= new Review(
-                sample_user_1,
+                "josh",
                 "Nice cafe",
                 4f);
 
         Review sample_review_2= new Review(
-                sample_user_1,
+                "james",
                 "Nice cafe",
                 3f);
 
         Review sample_review_3= new Review(
-                sample_user_1,
+                "vincent",
                 "Nice cafe",
                 3f);
 
         // sushi sample review
         Review sample_review_4= new Review(
-                sample_user_1,
+                "Ritchell",
                 "Delicious Sushi",
                 5f);
 
         Review sample_review_5= new Review(
-                sample_user_1,
+                "Stefan",
                 "Affordable Sushi",
                 5f);
 
         Review sample_review_6= new Review(
-                sample_user_1,
+                "Pritesh",
                 "Friendly Staff",
                 4f);
 
@@ -109,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 1,
                 "The GBCafe",
                 "Cafe",
-                "",
+                "6415, Steeles Avenue East",
                 "$$",
                 cafeReviewList);
 
@@ -117,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 2,
                 "GBC Sushi",
                 "Sushi",
-                sample_res_address_1,
+                "6415, Steeles Avenue East",
                 "$",
                 sushiReviewList);
 

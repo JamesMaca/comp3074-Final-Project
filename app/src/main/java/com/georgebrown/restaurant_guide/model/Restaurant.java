@@ -7,11 +7,6 @@ import java.util.List;
 
 public class Restaurant implements Serializable {
 
-    //TO CHANGE:
-        // auto gen id
-        // refctore to arraylist
-        //hours of opperation for each day of the week
-        // address to a string instead of object
     private int _ID;
     private String name;
     private String type;
