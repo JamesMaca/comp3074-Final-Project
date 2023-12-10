@@ -208,6 +208,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            if (data != null) {
+//                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
+//                // Update the restaurant in your list or adapter
+//            }
+//        }
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -225,6 +236,26 @@ public class MainActivity extends AppCompatActivity {
                     homeAdapter.notifyDataSetChanged();
                 }
             }
+        }
+    }
+
+    private void handleUpdatedRestaurant(Restaurant updatedRestaurant) {
+        int position = restaurantList.indexOf(updatedRestaurant);
+
+        if (position != -1) {
+            restaurantList.set(position, updatedRestaurant);
+            homeAdapter.notifyDataSetChanged();
+            Log.d("MainActivity", "Restaurant Updated: " + updatedRestaurant.getName());
+        }
+    }
+
+    private void handleEditedRestaurant(Restaurant editedRestaurant) {
+        int position = restaurantList.indexOf(editedRestaurant);
+
+        if (position != -1) {
+            restaurantList.set(position, editedRestaurant);
+            homeAdapter.notifyDataSetChanged();
+            Log.d("MainActivity", "Restaurant Edited: " + editedRestaurant.getName());
         }
     }
 

@@ -30,7 +30,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/rest_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

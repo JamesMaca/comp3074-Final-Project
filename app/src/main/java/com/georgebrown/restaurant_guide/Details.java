@@ -3,11 +3,13 @@ package com.georgebrown.restaurant_guide;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,7 +19,6 @@ import com.georgebrown.restaurant_guide.model.Review;
 import java.util.ArrayList;
 
 public class Details extends AppCompatActivity {
-
     Restaurant selectedRestaurant;
 
     @Override
@@ -35,6 +36,8 @@ public class Details extends AppCompatActivity {
                 updateSelectedRestaurant(selectedRestaurant);
             }
             //ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
+
+            updateUIWithRestaurantDetails();
 
             //Name + Review
             TextView restaurant_name = findViewById(R.id.restaurante_name);
@@ -125,7 +128,17 @@ public class Details extends AppCompatActivity {
                 review2_review.setText("");
             }
 
-            restaurant_name.setText(selectedRestaurant.getName());
+
+
+//            Intent editIntent = getIntent();
+//            if (editIntent != null) {
+//                Restaurant editRestaurant = (Restaurant) editIntent.getSerializableExtra("editRestaurant");
+//                restaurant_name.setText(editRestaurant.getName());
+//            }else{
+                restaurant_name.setText(selectedRestaurant.getName());
+//            }
+
+
 
         }
 
@@ -156,15 +169,22 @@ public class Details extends AppCompatActivity {
             }
         });
 
+        // Edit Restaurant Details ------------------------------------------------------
         Button btnEdit = findViewById(R.id.edit_listing);
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Details.this, edit_restaurant.class);
-                startActivity(intent);
+                Intent editIntent = new Intent(Details.this, edit_restaurant.class);
+                editIntent.putExtra("editRestaurant", selectedRestaurant);
+                startActivityForResult(editIntent, EDIT_RESTAURANT_REQUEST);
             }
         });
+
+
+
+
+
 
         // Make Review --------------------------------------------------------------
         ImageButton makeReview = findViewById(R.id.add_review_btn);
@@ -184,6 +204,7 @@ public class Details extends AppCompatActivity {
                 }
             }
         });
+
 
         //Google maps function------------------------------------------------------------------------
         ImageButton viewMap = findViewById(R.id.map_btn);
@@ -228,6 +249,48 @@ public class Details extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d("DetailsActivity", "onActivityResult called");
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == EDIT_RESTAURANT_REQUEST && resultCode == RESULT_OK && data != null) {
+            // Retrieve the edited restaurant details
+            Restaurant editedRestaurant = (Restaurant) data.getSerializableExtra("editedRestaurant");
+
+            if (editedRestaurant != null) {
+                // Update the selectedRestaurant object with the edited details
+                selectedRestaurant = editedRestaurant;
+
+                // Update the UI with the edited details
+                updateUIWithRestaurantDetails();
+            }
+        }
+    }
+
+    private void updateUIWithRestaurantDetails() {
+        // Update the UI with the edited restaurant details
+        Log.d("DetailsActivity", "Updating UI with edited details");
+
+        if (selectedRestaurant != null) {
+            Log.d("DetailsActivity", "Selected Restaurant is not null");
+            // Name + Review
+            TextView restaurant_name = findViewById(R.id.restaurante_name);
+//            TextView restaurant_avg_rating = findViewById(R.id.avg_rating);
+
+            Log.d("DetailsActivity", "Selected Restaurant Name: " + selectedRestaurant.getName());
+
+            String avg_review = String.valueOf(selectedRestaurant.getRatings() + "/5.0");
+
+//            restaurant_avg_rating.setText(avg_review);
+            restaurant_name.setText(selectedRestaurant.getName());
+        }
+
+        // ... (update other UI elements with the edited details)
+    }
+
     // Update selectedRestaurant with new data received from ReviewInterface
     private void updateSelectedRestaurant(Restaurant updatedRestaurant) {
         for (int i = 0; i < MainActivity.restaurantList.size(); i++) {
@@ -238,4 +301,5 @@ public class Details extends AppCompatActivity {
             }
         }
     }
+
 }
