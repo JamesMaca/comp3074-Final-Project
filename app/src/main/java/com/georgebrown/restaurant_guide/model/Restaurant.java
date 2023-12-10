@@ -1,10 +1,8 @@
 package com.georgebrown.restaurant_guide.model;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 
 public class Restaurant implements Serializable {
 
@@ -52,8 +50,9 @@ public class Restaurant implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public String setName(String name) {
         this.name = name;
+        return name;
     }
 
     public String getType() {

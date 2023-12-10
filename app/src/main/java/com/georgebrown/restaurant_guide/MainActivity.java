@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int ADD_RESTAURANT_REQUEST = 1;
 
-    ArrayList<Restaurant> restaurantList = new ArrayList<>();
+    static ArrayList<Restaurant> restaurantList = new ArrayList<>();
     ListView restaurantListView;
     SearchView searchView;
     HomeAdapter homeAdapter;
@@ -202,14 +202,54 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 1 && resultCode == RESULT_OK) {
+//            if (data != null) {
+//                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
+//                // Update the restaurant in your list or adapter
+//            }
+//        }
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             if (data != null) {
                 Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
-                // Update the restaurant in your list or adapter
+                Restaurant editedRestaurant = (Restaurant) data.getSerializableExtra("editedRestaurant");
+
+                Log.d("MainActivity", "Updated Restaurant: " + updatedRestaurant);
+                Log.d("MainActivity", "Edited Restaurant: " + editedRestaurant);
+
+                if (updatedRestaurant != null) {
+                    handleUpdatedRestaurant(updatedRestaurant);
+                } else if (editedRestaurant != null) {
+                    handleEditedRestaurant(editedRestaurant);
+                }
             }
+        }
+    }
+
+    private void handleUpdatedRestaurant(Restaurant updatedRestaurant) {
+        int position = restaurantList.indexOf(updatedRestaurant);
+
+        if (position != -1) {
+            restaurantList.set(position, updatedRestaurant);
+            homeAdapter.notifyDataSetChanged();
+            Log.d("MainActivity", "Restaurant Updated: " + updatedRestaurant.getName());
+        }
+    }
+
+    private void handleEditedRestaurant(Restaurant editedRestaurant) {
+        int position = restaurantList.indexOf(editedRestaurant);
+
+        if (position != -1) {
+            restaurantList.set(position, editedRestaurant);
+            homeAdapter.notifyDataSetChanged();
+            Log.d("MainActivity", "Restaurant Edited: " + editedRestaurant.getName());
         }
     }
 
