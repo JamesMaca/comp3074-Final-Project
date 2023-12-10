@@ -65,12 +65,13 @@ public class ReviewInterface extends AppCompatActivity {
 
                     Review newReview = new Review(usernameText, reviewText, rating);
                     Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-                    ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
-                    reviewList.add(newReview);
+                    selectedRestaurant.getReviewList().add(newReview);
+                    selectedRestaurant.updateRestaurantRating();
 
 
                     Intent resultIntent = new Intent(ReviewInterface.this, Details.class);
                     resultIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                    setResult(RESULT_OK, resultIntent);
                     startActivity(resultIntent);
 
 

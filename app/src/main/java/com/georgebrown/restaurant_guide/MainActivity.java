@@ -33,8 +33,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int ADD_RESTAURANT_REQUEST = 1;
-
-    ArrayList<Restaurant> restaurantList = new ArrayList<>();
+    static ArrayList<Restaurant> restaurantList = new ArrayList<>();
+    static boolean initialDataLoaded = false;
     ListView restaurantListView;
     SearchView searchView;
     HomeAdapter homeAdapter;
@@ -48,73 +48,79 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String[] hoursOfOperation = {
-                "8AM - 10PM",
-                "8AM - 10PM",
-                "8AM - 10PM",
-                "8AM - 10PM",
-                "8AM - 10PM",
-                "10AM - 6PM",
-                "CLOSED"};
 
-        // cafe sample review
-        Review sample_review_1 = new Review(
-                "Eleanor Quinn",
-                "Nice cafe",
-                4f);
+        if (!initialDataLoaded){
+            String[] hoursOfOperation = {
+                    "8AM - 10PM",
+                    "8AM - 10PM",
+                    "8AM - 10PM",
+                    "8AM - 10PM",
+                    "8AM - 10PM",
+                    "10AM - 6PM",
+                    "CLOSED"};
 
-        Review sample_review_2 = new Review(
-                "Miles Rodriguez",
-                "Nice cafe",
-                3f);
+            // cafe sample review
+            Review sample_review_1 = new Review(
+                    "Eleanor Quinn",
+                    "Nice cafe",
+                    4f);
 
-        Review sample_review_3 = new Review(
-                "Aurora Chang",
-                "Nice cafe",
-                3f);
+            Review sample_review_2 = new Review(
+                    "Miles Rodriguez",
+                    "Nice cafe",
+                    3f);
 
-        // sushi sample review
-        Review sample_review_4 = new Review(
-                "Caleb Harper",
-                "Delicious Sushi",
-                5f);
+            Review sample_review_3 = new Review(
+                    "Aurora Chang",
+                    "Nice cafe",
+                    3f);
 
-        Review sample_review_5 = new Review(
-                "Isabella Jensen",
-                "Affordable Sushi",
-                5f);
+            // sushi sample review
+            Review sample_review_4 = new Review(
+                    "Caleb Harper",
+                    "Delicious Sushi",
+                    5f);
 
-        Review sample_review_6 = new Review(
-                "Malik Thompson",
-                "Friendly Staff",
-                4f);
+            Review sample_review_5 = new Review(
+                    "Isabella Jensen",
+                    "Affordable Sushi",
+                    5f);
 
-        Restaurant The_GBCafe = new Restaurant(
-                "The GBCafe",
-                "Cafe",
-                "6415, Steeles Avenue East, Toronto",
-                "$$",
-                hoursOfOperation);
+            Review sample_review_6 = new Review(
+                    "Malik Thompson",
+                    "Friendly Staff",
+                    4f);
 
-        Restaurant GBC_Sushi = new Restaurant(
-                "GBC Sushi",
-                "Sushi",
-                "111 King Street West, Toronto",
-                "$$",
-                hoursOfOperation);
+            Restaurant The_GBCafe = new Restaurant(
+                    "The GBCafe",
+                    "Cafe",
+                    "6415, Steeles Avenue East, Toronto",
+                    "$$",
+                    hoursOfOperation);
 
-        // GBCafe
-        The_GBCafe.addReview(sample_review_1);
-        The_GBCafe.addReview(sample_review_2);
-        The_GBCafe.addReview(sample_review_3);
+            Restaurant GBC_Sushi = new Restaurant(
+                    "GBC Sushi",
+                    "Sushi",
+                    "111 King Street West, Toronto",
+                    "$$",
+                    hoursOfOperation);
 
-        // GBC SUSHI
-        GBC_Sushi.addReview(sample_review_4);
-        GBC_Sushi.addReview(sample_review_5);
-        GBC_Sushi.addReview(sample_review_6);
+            // GBCafe
+            The_GBCafe.addReview(sample_review_1);
+            The_GBCafe.addReview(sample_review_2);
+            The_GBCafe.addReview(sample_review_3);
 
-        restaurantList.add(The_GBCafe);
-        restaurantList.add(GBC_Sushi);
+            // GBC SUSHI
+            GBC_Sushi.addReview(sample_review_4);
+            GBC_Sushi.addReview(sample_review_5);
+            GBC_Sushi.addReview(sample_review_6);
+
+            restaurantList.add(The_GBCafe);
+            restaurantList.add(GBC_Sushi);
+
+            initialDataLoaded = true;
+        }
+
 
         // Search View
         searchView = findViewById(R.id.searchView);
@@ -209,6 +215,15 @@ public class MainActivity extends AppCompatActivity {
             if (data != null) {
                 Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
                 // Update the restaurant in your list or adapter
+                if (updatedRestaurant != null) {
+                    for (int i = 0; i < restaurantList.size(); i++) {
+                        if (restaurantList.get(i).getName().equals(updatedRestaurant.getName())) {
+                            restaurantList.set(i, updatedRestaurant);
+                            break;
+                        }
+                    }
+                    homeAdapter.notifyDataSetChanged();
+                }
             }
         }
     }

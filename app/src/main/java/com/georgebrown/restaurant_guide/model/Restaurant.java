@@ -81,7 +81,10 @@ public class Restaurant implements Serializable {
     }
 
     public float getRatings() {
-        return Float.parseFloat(String.format("%.1f", ratings));
+        if (getReviewList().size() > 0) {
+            return Float.parseFloat(String.format("%.1f", ratings));
+        }
+        return 0;
     }
 
     public void setRatings(float ratings) { this.ratings = ratings; }
@@ -110,9 +113,13 @@ public class Restaurant implements Serializable {
         this.hoursOfOperation = hoursOfOperation;
     }
 
+    public void updateRestaurantRating(){
+        ratings = setAverageRating();
+    }
+
     public void addReview(Review review){
         reviewList.add(review);
-        ratings = setAverageRating();
+        updateRestaurantRating();
     }
 
     @Override
