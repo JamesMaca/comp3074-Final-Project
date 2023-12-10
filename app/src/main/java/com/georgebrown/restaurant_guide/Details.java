@@ -18,8 +18,11 @@ import java.util.ArrayList;
 
 public class Details extends AppCompatActivity {
 
+    private Restaurant selectedRestaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
 
@@ -131,10 +134,19 @@ public class Details extends AppCompatActivity {
 
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
 
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                finish();
+//            }
+//        });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });

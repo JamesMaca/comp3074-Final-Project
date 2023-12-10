@@ -157,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
 //                    Intent intent = new Intent(MainActivity.this, Details.class);
 //                    intent.putExtra("selectedRestaurant", selectedRestaurant);
 //                    startActivity(intent);
+                    Intent detailsIntent = new Intent(MainActivity.this, Details.class);
+                    detailsIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                    startActivityForResult(detailsIntent, 1);
                 } else {
                     Log.e("MainActivity", "Selected restaurant is null");
                 }
@@ -199,6 +202,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (data != null) {
+                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
+                // Update the restaurant in your list or adapter
+            }
+        }
+    }
 
     private class HomeAdapter extends ArrayAdapter<Restaurant> implements Filterable {
         private Context context;
@@ -206,11 +219,10 @@ public class MainActivity extends AppCompatActivity {
         private List<Restaurant> filteredRestaurantList;
 
         public void addNewRestaurant(Restaurant newRestaurant) {
-            // Add the new restaurant to the list
+
             restaurantList.add(newRestaurant);
             filteredRestaurantList.add(newRestaurant);
 
-            // Notify the adapter that the data has changed
             notifyDataSetChanged();
 
             Log.d("HomeAdapter", "Restaurants Received: " + restaurantList.toString());
