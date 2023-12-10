@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Details extends AppCompatActivity {
 
-    private Restaurant selectedRestaurant;
+    Restaurant selectedRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,7 +30,11 @@ public class Details extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-            ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
+            if (selectedRestaurant != null) {
+                // Update the selectedRestaurant object with the changes from ReviewInterface
+                updateSelectedRestaurant(selectedRestaurant);
+            }
+            //ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
 
             //Name + Review
             TextView restaurant_name = findViewById(R.id.restaurante_name);
@@ -76,8 +80,8 @@ public class Details extends AppCompatActivity {
 //            review1_username.setText(reviewUser1 + " ");
 //            review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
 //            review1_review.setText(reviewComment1);
-            if (!reviewList.isEmpty()) {
-                Review firstReview = reviewList.get(0);
+            if (!selectedRestaurant.getReviewList().isEmpty()) {
+                Review firstReview = selectedRestaurant.getReviewList().get(0);
                 String reviewUser1 = firstReview.getUser();
                 Float reviewRating1 = firstReview.getRating();
                 String reviewComment1 = firstReview.getReview();
@@ -105,8 +109,8 @@ public class Details extends AppCompatActivity {
 //            review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
 //            review2_review.setText(reviewComment2);
 
-            if (!reviewList.isEmpty()) {
-                Review lastReview = reviewList.get(reviewList.size() - 1);
+            if (!selectedRestaurant.getReviewList().isEmpty()) {
+                Review lastReview = selectedRestaurant.getReviewList().get(selectedRestaurant.getReviewList().size() - 1);
                 String reviewUser2 = lastReview.getUser();
                 Float reviewRating2 = lastReview.getRating();
                 String reviewComment2 = lastReview.getReview();
@@ -144,9 +148,10 @@ public class Details extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
+                Intent resultIntent = new Intent(Details.this,MainActivity.class);
                 resultIntent.putExtra("selectedRestaurant", selectedRestaurant);
                 setResult(RESULT_OK, resultIntent);
+                startActivity(resultIntent);
                 finish();
             }
         });
@@ -222,9 +227,15 @@ public class Details extends AppCompatActivity {
 
             }
         });
-
-
     }
-
-
+    // Update selectedRestaurant with new data received from ReviewInterface
+    private void updateSelectedRestaurant(Restaurant updatedRestaurant) {
+        for (int i = 0; i < MainActivity.restaurantList.size(); i++) {
+            if (MainActivity.restaurantList.get(i).getName().equals(updatedRestaurant.getName())) {
+                MainActivity.restaurantList.set(i, updatedRestaurant);
+                // If needed, update the currently displayed selectedRestaurant object here.
+                break;
+            }
+        }
+    }
 }
