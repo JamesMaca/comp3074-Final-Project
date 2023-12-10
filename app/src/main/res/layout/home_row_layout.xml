@@ -100,11 +100,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:gravity="center"
             android:textColor="@color/dark_gray"
             android:textSize="16dp"
+            android:maxWidth="250dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingNumber" />
+
 
         <TextView
             android:id="@+id/restaurantHours"
