@@ -66,26 +66,57 @@ public class Details extends AppCompatActivity {
             TextView review1_rating = findViewById(R.id.review1_rating);
             TextView review1_review = findViewById(R.id.review1_review);
 
-            String reviewUser1 = reviewList.get(0).getUser();
-            Float reviewRating1 = reviewList.get(0).getRating();
-            String reviewComment1 = reviewList.get(0).getReview();
+//            String reviewUser1 = reviewList.get(0).getUser();
+//            Float reviewRating1 = reviewList.get(0).getRating();
+//            String reviewComment1 = reviewList.get(0).getReview();
+//
+//            review1_username.setText(reviewUser1 + " ");
+//            review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
+//            review1_review.setText(reviewComment1);
+            if (!reviewList.isEmpty()) {
+                Review firstReview = reviewList.get(0);
+                String reviewUser1 = firstReview.getUser();
+                Float reviewRating1 = firstReview.getRating();
+                String reviewComment1 = firstReview.getReview();
 
-            review1_username.setText(reviewUser1 + " ");
-            review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
-            review1_review.setText(reviewComment1);
+                review1_username.setText(reviewUser1 + " ");
+                review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
+                review1_review.setText(reviewComment1);
+            } else {
+                // Handle empty review list
+                review1_username.setText("No reviews available");
+                review1_rating.setText("");
+                review1_review.setText("");
+            }
 
             //Review2
             TextView review2_username = findViewById(R.id.review2_username);
             TextView review2_rating = findViewById(R.id.review2_rating);
             TextView review2_review = findViewById(R.id.review2_review);
 
-            String reviewUser2 = reviewList.get(reviewList.size() -1).getUser();
-            Float reviewRating2 = reviewList.get(reviewList.size() -1).getRating();
-            String reviewComment2 = reviewList.get(reviewList.size() -1).getReview();
+//            String reviewUser2 = reviewList.get(reviewList.size() -1).getUser();
+//            Float reviewRating2 = reviewList.get(reviewList.size() -1).getRating();
+//            String reviewComment2 = reviewList.get(reviewList.size() -1).getReview();
+//
+//            review2_username.setText(reviewUser2 + " ");
+//            review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
+//            review2_review.setText(reviewComment2);
 
-            review2_username.setText(reviewUser2 + " ");
-            review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
-            review2_review.setText(reviewComment2);
+            if (!reviewList.isEmpty()) {
+                Review lastReview = reviewList.get(reviewList.size() - 1);
+                String reviewUser2 = lastReview.getUser();
+                Float reviewRating2 = lastReview.getRating();
+                String reviewComment2 = lastReview.getReview();
+
+                review2_username.setText(reviewUser2 + " ");
+                review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
+                review2_review.setText(reviewComment2);
+            } else {
+                // Handle empty review list
+                review2_username.setText("");
+                review2_rating.setText("");
+                review2_review.setText("");
+            }
 
             restaurant_name.setText(selectedRestaurant.getName());
 

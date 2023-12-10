@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class add_restaurant extends AppCompatActivity {
@@ -85,8 +87,11 @@ public class add_restaurant extends AppCompatActivity {
 
                 Intent intent = new Intent(add_restaurant.this, MainActivity.class);
                 intent.putExtra("selectedRestaurant", restaurant);
+                Log.d("add_restaurant", "Selected Restaurant: " + restaurant.toString());
                 startActivity(intent);
+
             }
         });
     }
 }
+
