@@ -5,9 +5,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,24 +26,25 @@ import android.widget.TextView;
 import com.georgebrown.restaurant_guide.model.Restaurant;
 import com.georgebrown.restaurant_guide.model.Review;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import android.content.Intent;
-
 public class MainActivity extends AppCompatActivity {
+
+    private static final int ADD_RESTAURANT_REQUEST = 1;
 
     ArrayList<Restaurant> restaurantList = new ArrayList<>();
     ListView restaurantListView;
     SearchView searchView;
+    HomeAdapter homeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Sets custom toolbar
+        // Sets custom toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,102 +57,112 @@ public class MainActivity extends AppCompatActivity {
                 "10AM - 6PM",
                 "CLOSED"};
 
-
         // cafe sample review
-        Review sample_review_1= new Review(
-                "sample_user_1",
+        Review sample_review_1 = new Review(
+                "Eleanor Quinn",
                 "Nice cafe",
                 4f);
 
-        Review sample_review_2= new Review(
-                "sample_user_2",
+        Review sample_review_2 = new Review(
+                "Miles Rodriguez",
                 "Nice cafe",
                 3f);
 
-        Review sample_review_3= new Review(
-                "sample_user_3",
+        Review sample_review_3 = new Review(
+                "Aurora Chang",
                 "Nice cafe",
                 3f);
 
         // sushi sample review
-        Review sample_review_4= new Review(
-                "sample_user_1",
+        Review sample_review_4 = new Review(
+                "Caleb Harper",
                 "Delicious Sushi",
                 5f);
 
-        Review sample_review_5= new Review(
-                "sample_user_1",
+        Review sample_review_5 = new Review(
+                "Isabella Jensen",
                 "Affordable Sushi",
                 5f);
 
-        Review sample_review_6= new Review(
-                "sample_user_1",
+        Review sample_review_6 = new Review(
+                "Malik Thompson",
                 "Friendly Staff",
                 4f);
-
-
 
         Restaurant The_GBCafe = new Restaurant(
                 "The GBCafe",
                 "Cafe",
-                "6415, Steeles Avenue East",
+                "6415, Steeles Avenue East, Toronto",
                 "$$",
                 hoursOfOperation);
 
         Restaurant GBC_Sushi = new Restaurant(
                 "GBC Sushi",
                 "Sushi",
-                "6415, Steeles Avenue East",
+                "111 King Street West, Toronto",
                 "$$",
                 hoursOfOperation);
 
-        //GBCafe
+        // GBCafe
         The_GBCafe.addReview(sample_review_1);
         The_GBCafe.addReview(sample_review_2);
         The_GBCafe.addReview(sample_review_3);
 
-
-        //GBC SUSHI
+        // GBC SUSHI
         GBC_Sushi.addReview(sample_review_4);
         GBC_Sushi.addReview(sample_review_5);
         GBC_Sushi.addReview(sample_review_6);
 
-
         restaurantList.add(The_GBCafe);
         restaurantList.add(GBC_Sushi);
-
-
 
         // Search View
         searchView = findViewById(R.id.searchView);
 
-        //Listview of restaurants
+        // Listview of restaurants
         restaurantListView = findViewById(R.id.listRestaurants);
 
-        ArrayAdapter<Restaurant> homeAdapter = new HomeAdapter(this,restaurantList);
+        homeAdapter = new HomeAdapter(this, restaurantList);
 
-        //displays the restaurant lists with view from home_row_layout.xml
+        // Displays the restaurant lists with view from home_row_layout.xml
         restaurantListView.setAdapter(homeAdapter);
+
+        //======================RECEIVING RESTAURANT===============================//
+
+        Restaurant newRestaurant = (Restaurant) getIntent().getSerializableExtra("selectedRestaurant");
+
+        if (newRestaurant != null) {
+            // Log the received restaurant details
+            Log.d("MainActivity", "Received Restaurant: " + newRestaurant.toString());
+
+            homeAdapter.addNewRestaurant(newRestaurant);
+
+            // Add the new restaurant to the list
+//            restaurantList.add(newRestaurant);
+//
+//            // Notify the adapter that the data has changed
+//            homeAdapter.notifyDataSetChanged();
+//
+//            Log.d("MainActivity", "Restaurant List Contents: " + restaurantList.toString());
+        } else {
+            Log.e("MainActivity", "Received null restaurant");
+        }
 
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, Details.class);
-//                intent.putExtra("restaurantName", restaurantList.get(position).getName());
-                Restaurant selectedRestaurant = restaurantList.get(position);
+                Restaurant selectedRestaurant = homeAdapter.getItem(position);
 
-                intent.putExtra("selectedRestaurant", selectedRestaurant);
-
-                startActivity(intent);
-
-
-//                Toast.makeText(getApplicationContext(),"Proceed to Details Page for " +
-
-//                        restaurantList.get(position).getName(),Toast.LENGTH_SHORT).show();
-
-                // Configure Details Activity Here..........
-
-
+                if (selectedRestaurant != null) {
+//                    Intent intent = new Intent(MainActivity.this, Details.class);
+//                    intent.putExtra("selectedRestaurant", selectedRestaurant);
+//                    startActivity(intent);
+                    Intent detailsIntent = new Intent(MainActivity.this, Details.class);
+                    detailsIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                    startActivityForResult(detailsIntent, 1);
+                } else {
+                    Log.e("MainActivity", "Selected restaurant is null");
+                }
             }
         });
 
@@ -179,21 +191,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        // add more if statement for other options for dropdown menu
-        // configure dropdown_menu.xml first.. (under menu package in resource folder)
-
-        if (item.getItemId() == R.id.aboutUs){
+        if (item.getItemId() == R.id.aboutUs) {
             Intent intent = new Intent(MainActivity.this, AboutUs.class);
             startActivity(intent);
-            //Configure About Us Activity Here.....
-
-        }else if(item.getItemId() == R.id.adRestaurant){
+        } else if (item.getItemId() == R.id.adRestaurant) {
             Intent intent = new Intent(MainActivity.this, add_restaurant.class);
-            startActivity(intent);
-
+            startActivityForResult(intent, ADD_RESTAURANT_REQUEST);
         }
 
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (data != null) {
+                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
+                // Update the restaurant in your list or adapter
+            }
+        }
     }
 
     private class HomeAdapter extends ArrayAdapter<Restaurant> implements Filterable {
@@ -201,13 +218,25 @@ public class MainActivity extends AppCompatActivity {
         private List<Restaurant> restaurantList;
         private List<Restaurant> filteredRestaurantList;
 
+        public void addNewRestaurant(Restaurant newRestaurant) {
+
+            restaurantList.add(newRestaurant);
+            filteredRestaurantList.add(newRestaurant);
+
+            notifyDataSetChanged();
+
+            Log.d("HomeAdapter", "Restaurants Received: " + restaurantList.toString());
+        }
+
         public HomeAdapter(Context context, List<Restaurant> restaurantList) {
             super(context, R.layout.home_row_layout, restaurantList);
 
             this.context = context;
             this.restaurantList = restaurantList;
             this.filteredRestaurantList = new ArrayList<>(restaurantList);
+            Log.d("HomeAdapter", "Restaurant List Contents: " + restaurantList.toString());
         }
+
 
         @NonNull
         @Override
@@ -221,30 +250,32 @@ public class MainActivity extends AppCompatActivity {
 
             homeRowView = inflater.inflate(R.layout.home_row_layout, parent, false);
 
+            Log.d("MainActivity", "Filtered Restaurant List Contents: " + homeAdapter.filteredRestaurantList.toString());
+
             Restaurant restaurant = filteredRestaurantList.get(position);
 
-            //Get the current time
+            // Get the current time
             Calendar calendar = Calendar.getInstance();
 
-            //NOTE: Still need to configure the restaurant model to store a picture
+            // NOTE: Still need to configure the restaurant model to store a picture
 
-            //Restaurant name
+            // Restaurant name
             TextView restaurantName = homeRowView.findViewById(R.id.restaurantName);
             restaurantName.setText(restaurant.getName());
 
-            //Restaurant Rating Star
+            // Restaurant Rating Star
             RatingBar ratingStar = homeRowView.findViewById(R.id.ratingBar);
             ratingStar.setRating(restaurant.getRatings());
 
-            //Restaurant Rating Number
+            // Restaurant Rating Number
             TextView ratingNumber = homeRowView.findViewById(R.id.ratingNumber);
             ratingNumber.setText(String.valueOf(restaurant.getRatings()));
 
-            //Restaurant Rating Count
+            // Restaurant Rating Count
             TextView ratingCount = homeRowView.findViewById(R.id.ratingCount);
             ratingCount.setText(String.valueOf(restaurant.getReviewList().size()));
 
-            //Restaurant Price Estimate
+            // Restaurant Price Estimate
             TextView priceEstimate = homeRowView.findViewById(R.id.priceEstimate);
             priceEstimate.setText(restaurant.getPriceEstimation());
 

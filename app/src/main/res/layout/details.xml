@@ -20,15 +20,15 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="91dp"
-        android:layout_height="35dp"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/toolbar"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="161dp"
+        android:layout_marginStart="151dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="159dp"
+        android:layout_marginEnd="149dp"
         android:layout_marginBottom="13dp"
         android:text="Details"
         android:textAlignment="center"
@@ -48,13 +48,33 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/star1"
         android:layout_width="22dp"
         android:layout_height="19dp"
         android:layout_below="@+id/restaurante_name"
         android:layout_alignParentStart="true"
         android:layout_marginStart="37dp"
         android:layout_marginTop="0dp"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/star2"
+        android:layout_width="22dp"
+        android:layout_height="19dp"
+        android:layout_below="@+id/restaurante_name"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="209dp"
+        android:layout_toEndOf="@+id/review1_username"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <ImageView
+        android:id="@+id/star3"
+        android:layout_width="21dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="662dp"
+        android:layout_toEndOf="@+id/review2_username"
         app:srcCompat="@android:drawable/star_big_on" />
 
     <ImageButton
@@ -102,8 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_btn"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="333dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="-1dp"
         android:text="View Map"
         android:textSize="10sp" />
 
@@ -111,10 +131,10 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="383dp"
-        android:layout_toEndOf="@+id/avg_rating"
+        android:layout_marginStart="242dp"
+        android:layout_marginTop="381dp"
         android:text="Make Review"
         android:textSize="10sp" />
 
@@ -124,8 +144,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/map_btn"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="258dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="344dp"
+        android:layout_marginTop="-1dp"
         android:text="Share"
         android:textSize="10sp" />
 
@@ -143,7 +163,7 @@
         android:layout_height="2dp"
         android:layout_below="@+id/textView4"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="177dp"
+        android:layout_marginTop="174dp"
         android:background="@color/black" />
 
     <TextView
@@ -264,8 +284,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="552dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="548dp"
         android:text="Reviews"
         android:textColor="@color/black" />
 
@@ -273,15 +293,15 @@
         android:id="@+id/edit_listing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="142dp"
-        android:layout_marginBottom="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="460dp"
+        android:layout_toEndOf="@+id/wednesday"
         android:text="Edit Listing" />
 
     <TextView
         android:id="@+id/review1_username"
-        android:layout_width="wrap_content"
+        android:layout_width="127dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
         android:layout_alignParentStart="true"
@@ -291,62 +311,62 @@
 
     <TextView
         android:id="@+id/review1_rating"
-        android:layout_width="wrap_content"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
         android:layout_marginStart="0dp"
         android:layout_marginTop="6dp"
-        android:layout_toEndOf="@+id/review1_username"
+        android:layout_toEndOf="@+id/star2"
         android:text="rating1" />
 
     <TextView
         android:id="@+id/review1_review"
-        android:layout_width="168dp"
-        android:layout_height="62dp"
+        android:layout_width="355dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/review1_username"
         android:layout_alignParentStart="true"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="0dp"
         android:text="Review 1" />
 
     <TextView
         android:id="@+id/review2_username"
-        android:layout_width="wrap_content"
+        android:layout_width="127dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="139dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="91dp"
         android:text="Username 2" />
 
     <TextView
         android:id="@+id/review2_rating"
-        android:layout_width="wrap_content"
+        android:layout_width="87dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="94dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="91dp"
+        android:layout_toEndOf="@+id/star3"
         android:text="rating2" />
 
     <TextView
         android:id="@+id/review2_review"
-        android:layout_width="183dp"
-        android:layout_height="64dp"
+        android:layout_width="358dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/review2_username"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="14dp"
         android:text="Review 2" />
 
     <TextView
         android:id="@+id/avg_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/restaurante_name"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
-        android:layout_toEndOf="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="368dp"
         android:text="4.0/5.0" />
 
 

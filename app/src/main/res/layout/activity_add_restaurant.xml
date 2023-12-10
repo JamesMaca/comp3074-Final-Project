@@ -11,174 +11,327 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_layout" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/add_title"
-            android:layout_width="wrap_content"
+            android:layout_width="161dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="151dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="132dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="152dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="116dp"
+            android:layout_marginBottom="655dp"
             android:text="Add a Restaurant"
             android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/rest_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/rest_name"
-            android:layout_width="wrap_content"
+            android:layout_width="151dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="143dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="133dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="143dp"
-            android:layout_marginBottom="567dp"
+            android:layout_marginEnd="126dp"
+            android:layout_marginBottom="599dp"
             android:text="Name of Restaurant"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.535"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_title" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/rest_name_enter"
-            android:layout_width="252dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="101dp"
-            android:layout_marginEnd="101dp"
-            android:layout_marginBottom="511dp"
+            android:layout_width="259dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="557dp"
             android:background="@drawable/box_border"
             android:ems="10"
             android:gravity="center"
             android:importantForAccessibility="yes"
             android:inputType="text"
-            android:text="Enter Restaurant Name"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="134dp"
+            android:layout_marginBottom="529dp"
+            android:text="Type of Restaurant"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rest_name" />
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/type_enter"
+            android:layout_width="259dp"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="83dp"
+            android:layout_marginEnd="69dp"
+            android:layout_marginBottom="487dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:importantForAccessibility="yes"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/rest_address_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="41dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="85dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="417dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/rest_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="117dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="118dp"
-            android:layout_marginBottom="474dp"
+            android:layout_marginEnd="117dp"
+            android:layout_marginBottom="461dp"
             android:text="Address of Restaurant"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rest_name_enter" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/rest_address_enter"
-            android:layout_width="252dp"
-            android:layout_height="110dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="101dp"
-            android:layout_marginBottom="429dp"
+            android:id="@+id/monday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="351dp"
             android:background="@drawable/box_border"
             android:ems="10"
             android:gravity="center"
-            android:text="Enter Address of Restaurant"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rest_address"
-            app:layout_constraintVertical_bias="0.0" />
+            android:inputType="text"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/rest_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="179dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="174dp"
-            android:layout_marginBottom="330dp"
+            android:layout_marginEnd="177dp"
+            android:layout_marginBottom="394dp"
             android:text="Hours"
             android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tuesday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="284dp"
+            android:layout_marginBottom="318dp"
+            android:text="Tuesday"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rest_address_enter" />
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/rest_hours_enter"
-            android:layout_width="252dp"
-            android:layout_height="116dp"
-            android:layout_marginStart="101dp"
-            android:layout_marginEnd="101dp"
-            android:layout_marginBottom="284dp"
+            android:id="@+id/tuesday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="306dp"
             android:background="@drawable/box_border"
             android:ems="10"
             android:gravity="center"
-            android:inputType="textMultiLine"
-            android:text="Enter Hours of Restaurant"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.458"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rest_hours"
-            app:layout_constraintVertical_bias="0.0" />
+            android:inputType="text"
+            android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/add_photo"
-            android:layout_width="129dp"
-            android:layout_height="44dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="56dp"
-            android:layout_marginBottom="127dp"
-            android:background="@drawable/box_border_2"
-            android:text="Add a Photo"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rest_hours_enter"
-            app:layout_constraintVertical_bias="0.0">
+        <EditText
+            android:id="@+id/wednesday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="262dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="16sp" />
 
-        </androidx.appcompat.widget.AppCompatButton>
+        <TextView
+            android:id="@+id/wednesday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="282dp"
+            android:layout_marginBottom="273dp"
+            android:text="Wednesday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/thursday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="285dp"
+            android:layout_marginBottom="228dp"
+            android:text="Thursday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/thursday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="217dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/friday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="174dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/friday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="282dp"
+            android:layout_marginBottom="185dp"
+            android:text="Friday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/saturday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="280dp"
+            android:layout_marginBottom="138dp"
+            android:text="Saturday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/saturday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="129dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/sunday_hours"
+            android:layout_width="220dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="47dp"
+            android:layout_marginBottom="86dp"
+            android:background="@drawable/box_border"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/sunday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="283dp"
+            android:layout_marginBottom="98dp"
+            android:text="Sunday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/monday_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="284dp"
+            android:layout_marginBottom="362dp"
+            android:text="Monday"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/submit"
-            android:layout_width="175dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="123dp"
-            android:layout_marginTop="46dp"
-            android:layout_marginEnd="113dp"
-            android:layout_marginBottom="38dp"
-            android:text="Submit Restaurant"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_photo" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginStart="127dp"
+            android:layout_marginBottom="19dp"
+            android:text="Submit Restaurant" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -18,8 +18,11 @@ import java.util.ArrayList;
 
 public class Details extends AppCompatActivity {
 
+    private Restaurant selectedRestaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details);
 
@@ -27,7 +30,7 @@ public class Details extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-            ArrayList<Review> reviewList = selectedRestaurant.getReview();
+            ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
 
             //Name + Review
             TextView restaurant_name = findViewById(R.id.restaurante_name);
@@ -43,6 +46,7 @@ public class Details extends AppCompatActivity {
             restaurant_address.setText(selectedRestaurant.getAddress());
 
             //Hours or opertation
+            String[] hoursOfOperation = selectedRestaurant.getHoursOfOperation();
             TextView sunday = findViewById(R.id.sunday);
             TextView monday = findViewById(R.id.monday);
             TextView tuesday = findViewById(R.id.tuesday);
@@ -51,31 +55,71 @@ public class Details extends AppCompatActivity {
             TextView friday = findViewById(R.id.friday);
             TextView saturday = findViewById(R.id.saturday);
 
+            sunday.setText("Sunday - " + hoursOfOperation[0]);
+            monday.setText("Monday - " + hoursOfOperation[1]);
+            tuesday.setText("Tuesday - " + hoursOfOperation[2]);
+            wednesday.setText("Wednesday - " + hoursOfOperation[3]);
+            thursday.setText("Thursday - " + hoursOfOperation[4]);
+            friday.setText("Friday - " + hoursOfOperation[5]);
+            saturday.setText("Saturday - " + hoursOfOperation[6]);
+
+
             //Review1
             TextView review1_username = findViewById(R.id.review1_username);
             TextView review1_rating = findViewById(R.id.review1_rating);
             TextView review1_review = findViewById(R.id.review1_review);
 
-            String reviewUser1 = reviewList.get(0).getUser();
-            Float reviewRating1 = reviewList.get(0).getRating();
-            String reviewComment1 = reviewList.get(0).getReview();
+//            String reviewUser1 = reviewList.get(0).getUser();
+//            Float reviewRating1 = reviewList.get(0).getRating();
+//            String reviewComment1 = reviewList.get(0).getReview();
+//
+//            review1_username.setText(reviewUser1 + " ");
+//            review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
+//            review1_review.setText(reviewComment1);
+            if (!reviewList.isEmpty()) {
+                Review firstReview = reviewList.get(0);
+                String reviewUser1 = firstReview.getUser();
+                Float reviewRating1 = firstReview.getRating();
+                String reviewComment1 = firstReview.getReview();
 
-            review1_username.setText(reviewUser1 + " - ");
-            review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
-            review1_review.setText(reviewComment1);
+                review1_username.setText(reviewUser1 + " ");
+                review1_rating.setText(String.valueOf(reviewRating1) + "/5.0");
+                review1_review.setText(reviewComment1);
+            } else {
+                // Handle empty review list
+                review1_username.setText("No reviews available");
+                review1_rating.setText("");
+                review1_review.setText("");
+            }
 
             //Review2
             TextView review2_username = findViewById(R.id.review2_username);
             TextView review2_rating = findViewById(R.id.review2_rating);
             TextView review2_review = findViewById(R.id.review2_review);
 
-            String reviewUser2 = reviewList.get(reviewList.size() -1).getUser();
-            Float reviewRating2 = reviewList.get(reviewList.size() -1).getRating();
-            String reviewComment2 = reviewList.get(reviewList.size() -1).getReview();
+//            String reviewUser2 = reviewList.get(reviewList.size() -1).getUser();
+//            Float reviewRating2 = reviewList.get(reviewList.size() -1).getRating();
+//            String reviewComment2 = reviewList.get(reviewList.size() -1).getReview();
+//
+//            review2_username.setText(reviewUser2 + " ");
+//            review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
+//            review2_review.setText(reviewComment2);
 
-            review2_username.setText(reviewUser2 + " - ");
-            review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
-            review2_review.setText(reviewComment2);
+            if (!reviewList.isEmpty()) {
+                Review lastReview = reviewList.get(reviewList.size() - 1);
+                String reviewUser2 = lastReview.getUser();
+                Float reviewRating2 = lastReview.getRating();
+                String reviewComment2 = lastReview.getReview();
+
+                review2_username.setText(reviewUser2 + " ");
+                review2_rating.setText(String.valueOf(reviewRating2) + "/5.0");
+                review2_review.setText(reviewComment2);
+            } else {
+                // Handle empty review list
+                review2_username.setText("");
+                review2_rating.setText("");
+                review2_review.setText("");
+            }
 
             restaurant_name.setText(selectedRestaurant.getName());
 
@@ -90,10 +134,19 @@ public class Details extends AppCompatActivity {
 
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24);
 
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//                finish();
+//            }
+//        });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });
@@ -118,6 +171,8 @@ public class Details extends AppCompatActivity {
                 if(intent != null) {
                     Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
                     Intent reviewIntent = new Intent(Details.this, ReviewInterface.class);
+
+
                     reviewIntent.putExtra("selectedRestaurant", selectedRestaurant);
 
                     startActivity(reviewIntent);

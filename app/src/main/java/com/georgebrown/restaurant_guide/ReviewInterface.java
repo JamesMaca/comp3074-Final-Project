@@ -19,12 +19,6 @@ import java.util.ArrayList;
 
 public class ReviewInterface extends AppCompatActivity {
 
-    private ArrayList<Review> reviewList = new ArrayList<>();
-
-    public ArrayList<Review> getReviewList() {
-        return reviewList;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +34,15 @@ public class ReviewInterface extends AppCompatActivity {
         RatingBar ratingBar = findViewById(R.id.ratingBarReview);
 
         EditText reviewEditText = findViewById(R.id.reviewEditText);
+        EditText usernameEditText = findViewById(R.id.usernameEditText);
 
         Button submitButton = findViewById(R.id.submitReview);
 
         Intent intent = getIntent();
         if(intent != null){
             Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
-            //            String restaurantName = intent.getStringExtra("restaurantName");
-////            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("restaurant");
+            ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
+
             TextView restaurant_name = findViewById(R.id.reviewTitleView);
 ////            restaurant_name.setText(selectedRestaurant.getName());
             restaurant_name.setText(selectedRestaurant.getName());
@@ -63,13 +58,22 @@ public class ReviewInterface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String reviewText = reviewEditText.getText().toString();
+                String usernameText = usernameEditText.getText().toString();
                 float rating = ratingBar.getRating();
 
                 if (!reviewText.isEmpty()) {
 
-                    Review newReview = new Review("Johndoe123", reviewText, rating);
-
+                    Review newReview = new Review(usernameText, reviewText, rating);
+                    Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
+                    ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
                     reviewList.add(newReview);
+
+
+                    Intent resultIntent = new Intent(ReviewInterface.this, Details.class);
+                    resultIntent.putExtra("selectedRestaurant", selectedRestaurant);
+                    startActivity(resultIntent);
+
+
                     showToast("Review added: " + reviewText + ", rating: " + rating);
                 } else {
                     showToast("Please write a valid review or make sure review isn't empty.");
