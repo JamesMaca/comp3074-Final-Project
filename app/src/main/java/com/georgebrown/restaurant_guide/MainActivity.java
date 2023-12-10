@@ -135,13 +135,15 @@ public class MainActivity extends AppCompatActivity {
             // Log the received restaurant details
             Log.d("MainActivity", "Received Restaurant: " + newRestaurant.toString());
 
+            homeAdapter.addNewRestaurant(newRestaurant);
+
             // Add the new restaurant to the list
-            restaurantList.add(newRestaurant);
-
-            // Notify the adapter that the data has changed
-            homeAdapter.notifyDataSetChanged();
-
-            Log.d("MainActivity", "Restaurant List Contents: " + restaurantList.toString());
+//            restaurantList.add(newRestaurant);
+//
+//            // Notify the adapter that the data has changed
+//            homeAdapter.notifyDataSetChanged();
+//
+//            Log.d("MainActivity", "Restaurant List Contents: " + restaurantList.toString());
         } else {
             Log.e("MainActivity", "Received null restaurant");
         }
@@ -149,10 +151,15 @@ public class MainActivity extends AppCompatActivity {
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, Details.class);
-                Restaurant selectedRestaurant = restaurantList.get(position);
-                intent.putExtra("selectedRestaurant", selectedRestaurant);
-                startActivity(intent);
+                Restaurant selectedRestaurant = homeAdapter.getItem(position);
+
+                if (selectedRestaurant != null) {
+//                    Intent intent = new Intent(MainActivity.this, Details.class);
+//                    intent.putExtra("selectedRestaurant", selectedRestaurant);
+//                    startActivity(intent);
+                } else {
+                    Log.e("MainActivity", "Selected restaurant is null");
+                }
             }
         });
 
@@ -198,13 +205,26 @@ public class MainActivity extends AppCompatActivity {
         private List<Restaurant> restaurantList;
         private List<Restaurant> filteredRestaurantList;
 
+        public void addNewRestaurant(Restaurant newRestaurant) {
+            // Add the new restaurant to the list
+            restaurantList.add(newRestaurant);
+            filteredRestaurantList.add(newRestaurant);
+
+            // Notify the adapter that the data has changed
+            notifyDataSetChanged();
+
+            Log.d("HomeAdapter", "Restaurants Received: " + restaurantList.toString());
+        }
+
         public HomeAdapter(Context context, List<Restaurant> restaurantList) {
             super(context, R.layout.home_row_layout, restaurantList);
 
             this.context = context;
             this.restaurantList = restaurantList;
             this.filteredRestaurantList = new ArrayList<>(restaurantList);
+            Log.d("HomeAdapter", "Restaurant List Contents: " + restaurantList.toString());
         }
+
 
         @NonNull
         @Override
@@ -217,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             homeRowView = inflater.inflate(R.layout.home_row_layout, parent, false);
+
+            Log.d("MainActivity", "Filtered Restaurant List Contents: " + homeAdapter.filteredRestaurantList.toString());
 
             Restaurant restaurant = filteredRestaurantList.get(position);
 
