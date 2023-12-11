@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Review implements Serializable {
 
-    //TO CHANGE
     private String user;
     private String Review;
     private float rating;

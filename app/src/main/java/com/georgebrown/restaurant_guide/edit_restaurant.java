@@ -54,7 +54,7 @@ public class edit_restaurant extends AppCompatActivity {
                     editRestaurant.setName(editedName);
 
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("editedRestaurant", editRestaurant); // Use the correct key
+                    resultIntent.putExtra("editedRestaurant", editRestaurant);
                     Log.d("EditRestaurant", "Edited Name: " + editedName);
                     setResult(RESULT_OK, resultIntent);
                     finish();

@@ -6,11 +6,6 @@ import java.util.Arrays;
 
 public class Restaurant implements Serializable {
 
-    //TO CHANGE:
-        // auto gen id
-        // refctore to arraylist
-        //hours of opperation for each day of the week
-        // address to a string instead of object
     private static int restaurantCount = 0;
     private int _ID;
     private String name;

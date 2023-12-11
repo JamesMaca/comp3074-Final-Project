@@ -44,10 +44,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Sets custom toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         if (!initialDataLoaded){
             String[] hoursOfOperation = {
@@ -133,23 +131,15 @@ public class MainActivity extends AppCompatActivity {
         // Displays the restaurant lists with view from home_row_layout.xml
         restaurantListView.setAdapter(homeAdapter);
 
-        //======================RECEIVING RESTAURANT===============================//
 
         Restaurant newRestaurant = (Restaurant) getIntent().getSerializableExtra("selectedRestaurant");
 
         if (newRestaurant != null) {
-            // Log the received restaurant details
+
             Log.d("MainActivity", "Received Restaurant: " + newRestaurant.toString());
 
             homeAdapter.addNewRestaurant(newRestaurant);
 
-            // Add the new restaurant to the list
-//            restaurantList.add(newRestaurant);
-//
-//            // Notify the adapter that the data has changed
-//            homeAdapter.notifyDataSetChanged();
-//
-//            Log.d("MainActivity", "Restaurant List Contents: " + restaurantList.toString());
         } else {
             Log.e("MainActivity", "Received null restaurant");
         }
@@ -160,9 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 Restaurant selectedRestaurant = homeAdapter.getItem(position);
 
                 if (selectedRestaurant != null) {
-//                    Intent intent = new Intent(MainActivity.this, Details.class);
-//                    intent.putExtra("selectedRestaurant", selectedRestaurant);
-//                    startActivity(intent);
                     Intent detailsIntent = new Intent(MainActivity.this, Details.class);
                     detailsIntent.putExtra("selectedRestaurant", selectedRestaurant);
                     startActivityForResult(detailsIntent, 1);
@@ -172,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Search View Filter
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
@@ -207,17 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1 && resultCode == RESULT_OK) {
-//            if (data != null) {
-//                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
-//                // Update the restaurant in your list or adapter
-//            }
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -289,8 +264,6 @@ public class MainActivity extends AppCompatActivity {
 
             // Get the current time
             Calendar calendar = Calendar.getInstance();
-
-            // NOTE: Still need to configure the restaurant model to store a picture
 
             // Restaurant name
             TextView restaurantName = homeRowView.findViewById(R.id.restaurantName);

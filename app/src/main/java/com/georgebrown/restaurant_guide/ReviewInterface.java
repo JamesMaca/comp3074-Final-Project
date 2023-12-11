@@ -44,7 +44,6 @@ public class ReviewInterface extends AppCompatActivity {
             ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
 
             TextView restaurant_name = findViewById(R.id.reviewTitleView);
-////            restaurant_name.setText(selectedRestaurant.getName());
             restaurant_name.setText(selectedRestaurant.getName());
         }
 
