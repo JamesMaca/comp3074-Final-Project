@@ -35,8 +35,6 @@ public class edit_restaurant extends AppCompatActivity {
             editRestaurant = (Restaurant) intent.getSerializableExtra("editRestaurant");
             editRestaurantName.setText(editRestaurant.getName());
 
-
-
         }
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

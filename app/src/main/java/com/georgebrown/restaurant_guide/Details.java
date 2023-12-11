@@ -19,7 +19,9 @@ import com.georgebrown.restaurant_guide.model.Review;
 import java.util.ArrayList;
 
 public class Details extends AppCompatActivity {
-    Restaurant selectedRestaurant;
+    private Restaurant selectedRestaurant;
+    private static final int EDIT_RESTAURANT_REQUEST = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,10 +32,13 @@ public class Details extends AppCompatActivity {
         //Dynamically displaying restaurant details ---------------------------------------------
         Intent intent = getIntent();
         if(intent != null){
-            Restaurant selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
+            selectedRestaurant = (Restaurant) intent.getSerializableExtra("selectedRestaurant");
             if (selectedRestaurant != null) {
-                // Update the selectedRestaurant object with the changes from ReviewInterface
-                updateSelectedRestaurant(selectedRestaurant);
+                // Update the UI with the restaurant details
+                updateUIWithRestaurantDetails();
+            } else {
+                // Handle the case where selectedRestaurant is null
+                Log.e("DetailsActivity", "selectedRestaurant is null");
             }
             //ArrayList<Review> reviewList = selectedRestaurant.getReviewList();
 
@@ -253,7 +258,6 @@ public class Details extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d("DetailsActivity", "onActivityResult called");
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == EDIT_RESTAURANT_REQUEST && resultCode == RESULT_OK && data != null) {
@@ -266,6 +270,11 @@ public class Details extends AppCompatActivity {
 
                 // Update the UI with the edited details
                 updateUIWithRestaurantDetails();
+
+                // Send the edited restaurant back to MainActivity
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("editedRestaurant", editedRestaurant);
+                setResult(RESULT_OK, resultIntent);
             }
         }
     }
