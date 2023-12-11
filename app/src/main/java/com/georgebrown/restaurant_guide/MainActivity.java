@@ -224,40 +224,27 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
             if (data != null) {
-                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("selectedRestaurant");
-                // Update the restaurant in your list or adapter
+                Restaurant updatedRestaurant = (Restaurant) data.getSerializableExtra("editedRestaurant");
                 if (updatedRestaurant != null) {
+                    boolean restaurantExists = false;
                     for (int i = 0; i < restaurantList.size(); i++) {
                         if (restaurantList.get(i).getName().equals(updatedRestaurant.getName())) {
                             restaurantList.set(i, updatedRestaurant);
+                            restaurantExists = true;
                             break;
                         }
                     }
+
+                    if (!restaurantExists) {
+                        restaurantList.add(updatedRestaurant);
+                    }
+
                     homeAdapter.notifyDataSetChanged();
                 }
             }
         }
     }
 
-    private void handleUpdatedRestaurant(Restaurant updatedRestaurant) {
-        int position = restaurantList.indexOf(updatedRestaurant);
-
-        if (position != -1) {
-            restaurantList.set(position, updatedRestaurant);
-            homeAdapter.notifyDataSetChanged();
-            Log.d("MainActivity", "Restaurant Updated: " + updatedRestaurant.getName());
-        }
-    }
-
-    private void handleEditedRestaurant(Restaurant editedRestaurant) {
-        int position = restaurantList.indexOf(editedRestaurant);
-
-        if (position != -1) {
-            restaurantList.set(position, editedRestaurant);
-            homeAdapter.notifyDataSetChanged();
-            Log.d("MainActivity", "Restaurant Edited: " + editedRestaurant.getName());
-        }
-    }
 
     private class HomeAdapter extends ArrayAdapter<Restaurant> implements Filterable {
         private Context context;
